@@ -19,6 +19,8 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
+    "@tokenami/dev": "^0.0.7",
+    "@tokenami/ts-plugin": "^0.0.7",
     "prettier": "^3.1.1",
     "prettier-plugin-astro": "^0.12.2"
   }

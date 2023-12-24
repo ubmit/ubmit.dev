@@ -1,6 +1,8 @@
 {
+  "include": [".tokenami/tokenami.d.ts", "**/*.ts", "**/*.tsx", "**/*.astro"],
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "plugins": [{ "name": "@tokenami/ts-plugin" }]
   }
 }
