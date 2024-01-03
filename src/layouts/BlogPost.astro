@@ -16,9 +16,9 @@ const { title, description, pubDate, updatedDate } = Astro.props;
 
   <body>
     <Header />
-    <main class="m-0 w-[calc(100%_-_2em)] max-w-full">
-      <article class="prose">
-        <div class="m-auto w-[720px] max-w-[calc(100%_-_2em)] p-5">
+    <main>
+      <article class="prose mx-auto">
+        <div class="m-auto p-5">
           <div class="mb-5 px-0 py-5 text-center leading-none">
             <div class="mb-2">
               <FormattedDate date={pubDate} />
