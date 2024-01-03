@@ -13,7 +13,7 @@ const isActive = href === pathname || href === pathname.replace(/\/$/, "");
 <a
   href={href}
   class={cn(className, "inline-block no-underline", {
-    "font-bold no-underline": isActive,
+    "font-bold no-underline border-blue-600": isActive,
   })}
   {...props}
 >
