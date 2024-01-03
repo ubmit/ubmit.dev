@@ -14,13 +14,13 @@ const { title, description, pubDate, updatedDate } = Astro.props;
     <BaseHead title={title} description={description} />
   </head>
 
-  <body>
+  <body class="bg-gray-50">
     <Header />
     <main>
       <article class="prose mx-auto">
         <div class="m-auto p-5">
-          <div class="mb-5 px-0 py-5 text-center leading-none">
-            <div class="mb-2">
+          <div class="px-0 pt-5 text-center leading-none">
+            <div class="pb-2">
               <FormattedDate date={pubDate} />
               {
                 updatedDate && (
@@ -30,7 +30,7 @@ const { title, description, pubDate, updatedDate } = Astro.props;
                 )
               }
             </div>
-            <h1 class="mx-0 mb-8 mt-0">{title}</h1>
+            <h1>{title}</h1>
             <hr />
           </div>
           <slot />
