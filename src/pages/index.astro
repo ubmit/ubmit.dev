@@ -6,7 +6,7 @@ import { getCollection } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
 
 const posts = (await getCollection("blog")).sort(
-  (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
+  (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf(),
 );
 ---
 
@@ -14,60 +14,22 @@ const posts = (await getCollection("blog")).sort(
 <html lang="en">
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-    <style>
-      main {
-        width: 960px;
-      }
-      ul {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-      }
-      ul li * {
-        text-decoration: none;
-        transition: 0.2s ease;
-      }
-      ul li a {
-        display: block;
-      }
-      .title {
-        margin: 0;
-        color: rgb(var(--black));
-        line-height: 1;
-      }
-      .date {
-        margin: 0;
-        color: rgb(var(--gray));
-      }
-      ul li a:hover h4,
-      ul li a:hover .date {
-        color: rgb(var(--accent));
-      }
-      @media (max-width: 720px) {
-        ul {
-          gap: 0.5em;
-        }
-        ul li {
-          width: 100%;
-          text-align: center;
-        }
-      }
-    </style>
   </head>
-  <body>
+  <body class="bg-gray-50">
     <Header />
-    <main>
+    <main
+      class="m-auto w-[960px] max-w-[calc(100%_-_2em)] p-5 md:px-5 md:py-16"
+    >
       <section>
-        <ul>
+        <ul class="m-0 flex list-none flex-col gap-8 p-0 md:gap-2">
           {
             posts.map((post) => (
-              <li>
-                <a href={`/${post.slug}/`}>
-                  <h4 class="title">{post.data.title}</h4>
-                  <p class="date">
+              <li class="text-center no-underline transition-colors md:text-left">
+                <a class="group block" href={`/${post.slug}/`}>
+                  <h4 class="m-0 text-3xl leading-none text-gray-900 group-hover:text-blue-600">
+                    {post.data.title}
+                  </h4>
+                  <p class="m-0 text-lg text-gray-500 group-hover:text-blue-600">
                     <FormattedDate date={post.data.pubDate} />
                   </p>
                 </a>
