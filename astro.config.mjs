@@ -8,4 +8,7 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: "https://example.com",
   integrations: [mdx(), sitemap(), tailwind()],
+  redirects: {
+    "/resume": "https://ubmit.github.io/resume/resume.pdf",
+  },
 });
