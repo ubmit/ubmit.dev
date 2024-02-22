@@ -13,5 +13,6 @@ export default defineConfig({
     "/twitter": "https://x.com/ubmit",
     "/x": "https://x.com/ubmit",
     "/linkedin": "https://www.linkedin.com/in/ubmit/",
+    "/github": "https://github.com/ubmit",
   },
 });
