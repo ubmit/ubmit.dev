@@ -10,5 +10,7 @@ export default defineConfig({
   integrations: [mdx(), sitemap(), tailwind()],
   redirects: {
     "/resume": "https://ubmit.github.io/resume/resume.pdf",
+    "/twitter": "https://x.com/ubmit",
+    "/x": "https://x.com/ubmit",
   },
 });
