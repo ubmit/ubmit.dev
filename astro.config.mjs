@@ -14,5 +14,6 @@ export default defineConfig({
     "/x": "https://x.com/ubmit",
     "/linkedin": "https://www.linkedin.com/in/ubmit/",
     "/github": "https://github.com/ubmit",
+    "/meet": "https://cal.com/ubmit/30min",
   },
 });
