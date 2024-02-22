@@ -12,5 +12,6 @@ export default defineConfig({
     "/resume": "https://ubmit.github.io/resume/resume.pdf",
     "/twitter": "https://x.com/ubmit",
     "/x": "https://x.com/ubmit",
+    "/linkedin": "https://www.linkedin.com/in/ubmit/",
   },
 });
