@@ -9,3 +9,11 @@
   font-family: "Commit Mono";
   src: url("/fonts/CommitMono-400-Regular.otf") format("opentype");
 }
+
+@media (prefers-color-scheme: dark) {
+  .astro-code,
+  .astro-code span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+  }
+}

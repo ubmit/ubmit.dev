@@ -6,7 +6,15 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://example.com",
+  site: "https://ubmit.dev",
+  markdown: {
+    shikiConfig: {
+      experimentalThemes: {
+        light: "github-light",
+        dark: "github-dark",
+      },
+    },
+  },
   integrations: [
     mdx(),
     sitemap(),
