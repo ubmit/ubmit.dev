@@ -18,7 +18,7 @@ const posts = (await getCollection("blog")).sort(
   <BaseLayout>
     <section class="-mb-3 mt-16 sm:mt-32">
       <h2 class="mb-5 block font-medium sm:mb-4">About</h2>
-      <p>
+      <p class="text-gray-1100">
         I'm Guilherme, a Frontend Engineer focused on crafting polished and
         user-first products. You can read my ramblings on <a
           class="underline"
@@ -37,11 +37,11 @@ const posts = (await getCollection("blog")).sort(
         {
           posts.map((post) => (
             <li class="-mx-3 flex flex-col rounded-md px-3 no-underline hover:cursor-pointer hover:bg-[#F5F4F4] sm:py-3 dark:hover:bg-gray-200">
-              <a href={`/${post.slug}/`}>
+              <a href={`/${post.slug}/`} class="text-gray-1100">
                 {post.data.title}
-                <p class="text-gray-500">
+                <span class="block text-gray-800">
                   <FormattedDate date={post.data.pubDate} />
-                </p>
+                </span>
               </a>
             </li>
           ))
