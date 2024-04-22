@@ -12,3 +12,20 @@ import Header from "../components/Header.astro";
     </main>
   </div>
 </body>
+
+<script is:inline>
+  function updateTheme(theme) {
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(theme);
+  }
+
+  let darkColorSchemePref = window.matchMedia("(prefers-color-scheme: dark)");
+
+  let systemTheme = darkColorSchemePref.matches ? "dark" : "light";
+
+  updateTheme(systemTheme);
+
+  darkColorSchemePref.addEventListener("change", (e) => {
+    updateTheme(e.matches ? "dark" : "light");
+  });
+</script>
