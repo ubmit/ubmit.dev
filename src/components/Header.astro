@@ -1,20 +1,10 @@
 ---
-import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../consts";
 ---
 
-<header class="m-0 bg-white px-4 py-0 shadow-sm">
-  <nav class="flex items-center justify-between">
-    <h2 class="m-0 text-xl">
-      <a class="px-3 py-5 text-black no-underline" href="/">{SITE_TITLE}</a>
-    </h2>
-    <div>
-      <HeaderLink
-        class="border-b-4 border-transparent px-3 py-5 text-xl"
-        href="/about"
-      >
-        About
-      </HeaderLink>
-    </div>
-  </nav>
+<header class="mb-32 flex flex-col items-start">
+  <a class="text-medium inline-block font-medium no-underline" href="/">
+    {SITE_TITLE}
+  </a>
+  <span>Frontend Engineer</span>
 </header>
