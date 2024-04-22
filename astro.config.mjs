@@ -7,7 +7,13 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
   site: "https://example.com",
-  integrations: [mdx(), sitemap(), tailwind()],
+  integrations: [
+    mdx(),
+    sitemap(),
+    tailwind({
+      applyBaseStyles: false,
+    }),
+  ],
   redirects: {
     "/resume": "https://ubmit.github.io/resume/resume.pdf",
     "/twitter": "https://x.com/ubmit",
