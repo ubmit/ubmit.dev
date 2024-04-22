@@ -1,3 +1,5 @@
+import defaultTheme from "tailwindcss/defaultTheme";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./src/**/*.{astro,html,md,mdx,ts,tsx}"],
@@ -18,6 +20,10 @@ export default {
           1100: "var(--gray-11)",
           1200: "var(--gray-12)",
         },
+      },
+      fontFamily: {
+        sans: ["Work Sans", ...defaultTheme.fontFamily.sans],
+        mono: ["Commit Mono", ...defaultTheme.fontFamily.mono],
       },
     },
   },
