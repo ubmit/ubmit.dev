@@ -9,7 +9,7 @@ export default defineConfig({
   site: "https://ubmit.dev",
   markdown: {
     shikiConfig: {
-      experimentalThemes: {
+      themes: {
         light: "github-light",
         dark: "github-dark",
       },
