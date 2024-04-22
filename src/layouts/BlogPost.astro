@@ -15,7 +15,7 @@ const { title, description, pubDate, updatedDate } = Astro.props;
   </head>
 
   <BaseLayout>
-    <article class="prose">
+    <article class="prose dark:prose-invert">
       <h1 class="mb-0">{title}</h1>
       <div>
         <FormattedDate date={pubDate} />
