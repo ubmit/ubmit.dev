@@ -51,6 +51,7 @@ export default {
             },
             code: {
               color: theme("colors.gray.1200"),
+              fontWeight: theme("fontWeight.bold"),
             },
             time: {
               color: theme("colors.gray.1000"),
