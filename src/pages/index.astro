@@ -21,11 +21,15 @@ const posts = (await getCollection("blog")).sort(
       <p class="leading-7 text-gray-1100">
         I'm Guilherme, a Frontend Engineer focused on crafting polished and
         user-first products. You can read my ramblings on <a
-          class="underline"
+          class="underline hover:text-gray-1200"
           href="https://x.com/ubmit"
           target="_blank">Twitter</a
         > and take a look at my code on
-        <a href="https://github.com/ubmit" target="_blank" class="underline">
+        <a
+          href="https://github.com/ubmit"
+          target="_blank"
+          class="underline hover:text-gray-1200"
+        >
           GitHub</a
         >.
       </p>
@@ -36,10 +40,10 @@ const posts = (await getCollection("blog")).sort(
       <ul class="flex flex-col gap-7 sm:gap-4">
         {
           posts.map((post) => (
-            <li class="-mx-3 flex flex-col rounded-md px-3 no-underline hover:cursor-pointer hover:bg-[#F5F4F4] sm:py-3 dark:hover:bg-gray-200">
+            <li class="-mx-3 flex flex-col rounded-md px-3 no-underline hover:cursor-pointer hover:bg-gray-200 sm:py-3">
               <a href={`/${post.slug}/`} class="text-gray-1100">
                 {post.data.title}
-                <span class="block text-gray-800">
+                <span class="block font-mono text-sm font-light text-gray-1000">
                   <FormattedDate date={post.data.pubDate} />
                 </span>
               </a>
