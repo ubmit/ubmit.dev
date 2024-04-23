@@ -25,6 +25,42 @@ export default {
         sans: ["Work Sans", ...defaultTheme.fontFamily.sans],
         mono: ["Commit Mono", ...defaultTheme.fontFamily.mono],
       },
+      typography: ({ theme }) => ({
+        DEFAULT: {
+          css: {
+            h1: {
+              color: theme("colors.gray.1200"),
+              fontSize: theme("fontSize.2xl"),
+            },
+            h2: {
+              color: theme("colors.gray.1200"),
+              fontSize: theme("fontSize.xl"),
+            },
+            h3: {
+              color: theme("colors.gray.1200"),
+              fontSize: theme("fontSize.lg"),
+            },
+            p: {
+              color: theme("colors.gray.1100"),
+            },
+            a: {
+              color: theme("colors.gray.1100"),
+              "&:hover": {
+                color: theme("colors.gray.1200"),
+              },
+            },
+            code: {
+              color: theme("colors.gray.1200"),
+            },
+            time: {
+              color: theme("colors.gray.1000"),
+              fontFamily: theme("fontFamily.mono"),
+              fontSize: theme("fontSize.sm"),
+              fontWieght: theme("fontWeight.light"),
+            },
+          },
+        },
+      }),
     },
   },
   plugins: [require("@tailwindcss/typography")],
