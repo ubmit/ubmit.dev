@@ -6,6 +6,10 @@ import FormattedDate from "../components/FormattedDate.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import "../styles/base.css";
 
+const talks = (await getCollection("talks")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
@@ -36,6 +40,24 @@ const posts = (await getCollection("blog")).sort(
     </section>
 
     <section class="-mb-3 mt-16 sm:mt-32">
+      <h2 class="mb-5 block font-medium sm:mb-4">Talks</h2>
+      <ul class="flex flex-col gap-7 sm:gap-4">
+        {
+          talks.map((talk) => (
+            <li class="-mx-3 flex flex-col rounded-md px-3 no-underline hover:cursor-pointer hover:bg-gray-200 sm:py-3">
+              <a href={`/talks/${talk.slug}/`} class="text-gray-1100">
+                {talk.data.title}
+                <span class="block font-mono text-sm font-light text-gray-1000">
+                  <FormattedDate date={talk.data.date} />
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="mt-16 sm:mt-32">
       <h2 class="mb-5 block font-medium sm:mb-4">Posts</h2>
       <ul class="flex flex-col gap-7 sm:gap-4">
         {
