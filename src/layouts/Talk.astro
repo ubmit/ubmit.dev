@@ -1,0 +1,26 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+type Props = CollectionEntry<"talks">["data"];
+
+const { title, date, event, venue } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={"some talk"} />
+  </head>
+
+  <BaseLayout>
+    <article class="prose dark:prose-invert">
+      <h1 class="mb-0">{title}</h1>
+      <div>
+        <FormattedDate date={date} />
+      </div>
+      <slot />
+    </article>
+  </BaseLayout>
+</html>
