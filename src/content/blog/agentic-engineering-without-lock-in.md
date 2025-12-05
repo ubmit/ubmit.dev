@@ -4,8 +4,6 @@ description: "From GitHub Copilot skeptic to agentic engineering enthusiast. Fol
 pubDate: "Dec 08 2025"
 ---
 
-# Agentic engineering without lock-in
-
 ## Chasing the summit
 
 The race to the summit that represents the best coding Large Language Model (LLM) started a long time ago, and we have yet to see who will arrive first. It feels like one of those mountain ultramarathon races such as the Madeira Island Ultra Trail (MIUT) with distances over 100km and elevation gains of more than 6,000 meters—except the competitors have no idea how long they'll need to run or how much they'll need to climb, because the finish line is actually unknown.
