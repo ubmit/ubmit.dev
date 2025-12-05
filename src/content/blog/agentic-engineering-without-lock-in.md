@@ -26,7 +26,7 @@ As someone who wants freedom but still wants access to great software and AI mod
 After an entire evening of searching, here's what I found and was able to put together:
 
 - **[GitHub Copilot Pro](https://github.com/features/copilot/plans)** subscription for $10/mo (with a free 1-month trial), which offers me the models I wanted at a fair price
-- **[OpenCode](https://opencode.ai/)**, "the open source AI coding agent" as a Claude Code alternative that
+- **[OpenCode](https://opencode.ai/)**, "the open source AI coding agent" as a Claude Code alternative that provides agentic coding assistance, supports BYOK, and can be integrated with various IDEs for a customizable, lock-in-free workflow.
 - **[Zed](https://zed.dev/)**, which not only lets me choose any model I have access to through GitHub Copilot Pro for autocompletion, but also integrates nicely with OpenCode using the [ACP protocol](https://zed.dev/acp).
 
 ## The meta layer
