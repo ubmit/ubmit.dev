@@ -57,7 +57,7 @@ export default {
               color: theme("colors.gray.1000"),
               fontFamily: theme("fontFamily.mono"),
               fontSize: theme("fontSize.sm"),
-              fontWieght: theme("fontWeight.light"),
+              fontWeight: theme("fontWeight.light"),
             },
           },
         },

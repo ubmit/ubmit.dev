@@ -38,7 +38,7 @@ const getJuicePrice = (inputValue) =>
     .chain((juiceName) => fromNullable(juices[juiceName]))
     .fold(
       (e) => "error",
-      (price) => price
+      (price) => price,
     );
 
 getJuicePrice("   passionfruit     "); // "$2.50"
@@ -69,7 +69,7 @@ const getJuicePrice = (inputValue) =>
     .chain((juiceName) => fromNullable(juices[juiceName]))
     .fold(
       (e) => "error",
-      (price) => price
+      (price) => price,
     );
 ```
 
