@@ -27,10 +27,10 @@ function processUserRegistration(userInput) {
   // Validation logic mixed with processing
   if (username) {
     username = username.trim();
-    
+
     if (username.length > 0) {
       username = username.toLowerCase();
-      
+
       // Check database
       const existingUser = database.users[username];
       if (existingUser) {
@@ -42,12 +42,12 @@ function processUserRegistration(userInput) {
           errors.push("Username too short");
           return { success: false, errors: errors };
         }
-        
+
         if (!/^[a-z0-9]+$/.test(username)) {
           errors.push("Username contains invalid characters");
           return { success: false, errors: errors };
         }
-        
+
         // Success case buried at the bottom
         return { success: true, username: username };
       }
@@ -419,7 +419,7 @@ const lessFruits = fruits.filter((fruit) => fruit !== "banana");
 
 // ✅ Updating items (immutable)
 const updatedFruits = fruits.map((fruit) =>
-  fruit === "apple" ? "green apple" : fruit
+  fruit === "apple" ? "green apple" : fruit,
 );
 
 // ❌ Mutating operations to avoid
