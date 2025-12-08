@@ -516,13 +516,13 @@ const formatPrice = (price) =>
 formatPrice(5); // "$11"
 ```
 
-The Box version reads like a recipe: "take the price, double it, add tax, round it, format it." No temporary variables needed!
+The `Box` version reads like a recipe: "take the price, double it, add tax, round it, format it." No temporary variables needed!
 
 ### Understanding map and fold
 
 Let's break down these two key methods:
 
-**`map(f)`**: Applies a function to the value inside the Box, and returns a new Box with the transformed value.
+**`map(f)`**: Applies a function to the value inside the `Box`, and returns a new `Box` with the transformed value.
 
 ```js
 Box(10)
@@ -532,7 +532,7 @@ Box(10)
 
 Think of `map` like Array's `map`, but for a single value. It keeps the value "boxed" so you can keep chaining.
 
-**`fold(f)`**: Extracts the value from the Box by applying a function to it.
+**`fold(f)`**: Extracts the value from the `Box` by applying a function to it.
 
 ```js
 const result = Box(10)
@@ -544,7 +544,7 @@ You can think of `fold` as "unboxing" the value to get back to regular JavaScrip
 
 ### Extending Box to Handle Null: The Maybe Pattern
 
-Now let's make Box smarter so it can handle `null` and `undefined` safely. We'll call this **Maybe** (also known as Option in some languages):
+Now let's make `Box` smarter so it can handle `null` and `undefined` safely. We'll call this **Maybe** (also known as Option in some languages):
 
 ```js
 const Maybe = (x) => ({
@@ -704,7 +704,7 @@ const getUserDiscount = (userId) =>
     );
 ```
 
-The Maybe version is shorter, doesn't need try/catch, and makes the "happy path" obvious. Plus, it's composable—you can easily chain more operations.
+The `Maybe` version is shorter, doesn't need try/catch, and makes the "happy path" obvious. Plus, it's composable—you can easily chain more operations.
 
 ### When to Use These Patterns
 
@@ -735,7 +735,3 @@ These patterns aren't about replacing all your code—they're tools in your tool
 ## Dive Deeper
 
 Fortunately, as it has been shown in this article, it’s definitely possible to use functional programming with plain JavaScript. However, if you really want to dive deeper into this paradigm while using JavaScript, you’ll probably want to use some already existing functional libraries such as [Sanctuary](https://github.com/sanctuary-js/sanctuary), [Fluture](https://github.com/fluture-js/Fluture), [Ramda](https://github.com/ramda/ramda) and others.
-
-These libraries provide battle-tested implementations of Maybe, Either (for error handling), Task (for async operations), and many other functional patterns. They also handle edge cases and provide type safety that our simple examples don't cover.
-
-The patterns you've learned in this article—pure functions, immutability, function composition, and Maybe—are the foundation. Once you're comfortable with these concepts, exploring libraries like Sanctuary or Ramda will feel natural and will supercharge your functional programming journey.
