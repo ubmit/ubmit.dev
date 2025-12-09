@@ -10,7 +10,7 @@ export const GET: APIRoute = () => {
     status: 200,
     headers: {
       "Content-Type": "application/pdf",
-      "Content-Disposition": 'inline; filename="resume.pdf"',
+      "Content-Disposition": "inline",
     },
   });
 };
