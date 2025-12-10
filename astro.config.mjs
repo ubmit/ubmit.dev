@@ -23,12 +23,12 @@ export default defineConfig({
     }),
   ],
   redirects: {
-    "/resume": "https://ubmit.github.io/resume/resume.pdf",
     "/twitter": "https://x.com/ubmit",
     "/x": "https://x.com/ubmit",
     "/linkedin": "https://www.linkedin.com/in/ubmit/",
     "/github": "https://github.com/ubmit",
     "/meet": "https://cal.com/ubmit/30min",
     "/quick-meet": "https://cal.com/ubmit/15min",
+    "/resume": "/resume.pdf",
   },
 });
