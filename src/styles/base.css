@@ -5,6 +5,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scrollbar-gutter: stable;
+}
+
 @font-face {
   font-family: "Commit Mono";
   src: url("/fonts/CommitMono-400-Regular.otf") format("opentype");
