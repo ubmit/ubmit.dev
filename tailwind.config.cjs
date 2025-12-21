@@ -40,7 +40,7 @@ export default {
               color: theme("colors.gray.1200"),
               fontSize: theme("fontSize.lg"),
             },
-            p: {
+            "p, li": {
               color: theme("colors.gray.1100"),
             },
             a: {

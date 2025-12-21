@@ -1,6 +1,6 @@
 ---
 title: "Replace switch statements with object lookups"
-description: "A quick refactoring tip to improve readability when mapping keys to values"
+description: "A quick refactoring tip to improve readability when mapping keys to values."
 pubDate: "Jan 02 2022"
 ---
 

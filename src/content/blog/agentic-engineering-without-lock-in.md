@@ -1,6 +1,6 @@
 ---
 title: "Agentic engineering without lock-in"
-description: "From GitHub Copilot skeptic to agentic engineering enthusiast. Follow my journey discovering Claude 3.5 Sonnet, exploring multi-agent workflows, and ultimately building a powerful, lock-in-free coding setup"
+description: "Building a lock-in-free agentic coding setup with OpenCode and Zed."
 pubDate: "Dec 08 2025"
 ---
 
