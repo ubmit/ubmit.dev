@@ -1,6 +1,6 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 
 import sitemap from "@astrojs/sitemap";
 
@@ -15,13 +15,10 @@ export default defineConfig({
       },
     },
   },
-  integrations: [
-    mdx(),
-    sitemap(),
-    tailwind({
-      applyBaseStyles: false,
-    }),
-  ],
+  vite: {
+    plugins: [tailwindcss()],
+  },
+  integrations: [mdx(), sitemap()],
   redirects: {
     "/twitter": "https://x.com/ubmit",
     "/x": "https://x.com/ubmit",
