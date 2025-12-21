@@ -50,14 +50,63 @@ Any static assets, like images, can be placed in the `public/` directory.
 
 All commands are run from the root of the project, from a terminal:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+| Command                    | Action                                           |
+| :------------------------- | :----------------------------------------------- |
+| `pnpm install`             | Installs dependencies                            |
+| `pnpm run dev`             | Starts local dev server at `localhost:4321`      |
+| `pnpm run build`           | Build your production site to `./dist/`          |
+| `pnpm run preview`         | Preview your build locally, before deploying     |
+| `pnpm run test`            | Run visual regression tests with Playwright      |
+| `pnpm run test:ui`         | Run tests in interactive UI mode                 |
+| `pnpm run test:update`     | Update visual regression snapshots               |
+| `pnpm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `pnpm run astro -- --help` | Get help using the Astro CLI                     |
+
+## 🧪 Visual Regression Testing
+
+This project uses Playwright for visual regression testing to ensure UI consistency.
+
+### Running Tests Locally
+
+```sh
+# Run all visual regression tests
+pnpm run test
+
+# Run tests in interactive UI mode
+pnpm run test:ui
+
+# Update snapshots after intentional UI changes
+pnpm run test:update
+```
+
+### CI Integration
+
+Visual regression tests run automatically on every push and pull request. The tests:
+
+- Build the production site
+- Capture screenshots of key pages in light and dark modes
+- Compare against baseline snapshots stored in the repository
+- Fail if visual differences exceed the 1% pixel threshold
+
+### Handling Test Failures
+
+If tests fail in CI:
+
+1. Download the `playwright-report` and `playwright-results` artifacts from the failed workflow
+2. Review the diff images to understand what changed
+3. If changes are intentional:
+   - Run `pnpm run test:update` locally to update darwin snapshots
+   - Commit the updated snapshots
+   - CI will generate linux snapshots on the next run
+
+### Platform-Specific Snapshots
+
+Tests generate platform-specific baselines:
+
+- `chromium-darwin`: For local development on macOS
+- `chromium-linux`: For CI environment (Ubuntu)
+
+This ensures tests pass consistently across different operating systems.
 
 ## 👀 Want to learn more?
 
