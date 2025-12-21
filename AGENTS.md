@@ -1,11 +1,11 @@
 # Agent Guidelines for ubmit.dev
 
 ## Commands
-- **Dev**: `npm run dev` (starts at localhost:4321)
-- **Build**: `npm run build` (runs astro check + build)
-- **Format**: `npm run format` (Prettier with Astro/Tailwind plugins)
-- **Type Check**: `astro check`
-- **No test suite** currently configured
+- **Dev**: `pnpm run dev` (starts at localhost:4321)
+- **Build**: `pnpm run build` (runs astro check + build)
+- **Format**: `pnpm run format` (Prettier with Astro/Tailwind plugins)
+- **Type Check**: `pnpm exec astro check`
+- **Visual Tests**: `pnpm exec playwright test` (Playwright visual regression tests)
 
 ## Code Style
 - **TypeScript**: Strict mode, strict null checks enabled
