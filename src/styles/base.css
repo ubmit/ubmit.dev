@@ -1,9 +1,68 @@
+@import "tailwindcss";
 @import "@radix-ui/colors/gray.css";
 @import "@radix-ui/colors/gray-dark.css";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-gray-100: var(--gray-1);
+  --color-gray-200: var(--gray-2);
+  --color-gray-300: var(--gray-3);
+  --color-gray-400: var(--gray-4);
+  --color-gray-500: var(--gray-5);
+  --color-gray-600: var(--gray-6);
+  --color-gray-700: var(--gray-7);
+  --color-gray-800: var(--gray-8);
+  --color-gray-900: var(--gray-9);
+  --color-gray-1000: var(--gray-10);
+  --color-gray-1100: var(--gray-11);
+  --color-gray-1200: var(--gray-12);
+
+  --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Commit Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  .prose h1 {
+    color: var(--color-gray-1200);
+    font-size: var(--font-size-2xl);
+  }
+
+  .prose h2 {
+    color: var(--color-gray-1200);
+    font-size: var(--font-size-xl);
+  }
+
+  .prose h3 {
+    color: var(--color-gray-1200);
+    font-size: var(--font-size-lg);
+  }
+
+  .prose p,
+  .prose li {
+    color: var(--color-gray-1100);
+  }
+
+  .prose a {
+    color: var(--color-gray-1100);
+  }
+
+  .prose a:hover {
+    color: var(--color-gray-1200);
+  }
+
+  .prose code {
+    color: var(--color-gray-1200);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .prose time {
+    color: var(--color-gray-1000);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-light);
+  }
+}
 
 html {
   scrollbar-gutter: stable;
