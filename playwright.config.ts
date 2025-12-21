@@ -5,7 +5,7 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 2 : undefined,
   reporter: process.env.CI ? [["html"], ["github"]] : "html",
   use: {
     baseURL: "http://localhost:4321",
@@ -24,7 +24,7 @@ export default defineConfig({
   },
   expect: {
     toHaveScreenshot: {
-      maxDiffPixelRatio: 0.01, // Allow 1% pixel difference
+      maxDiffPixelRatio: 0.001, // Allow 0.1% pixel difference for minor rendering variations
     },
   },
 });
