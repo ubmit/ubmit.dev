@@ -1,41 +1,43 @@
 @import "tailwindcss";
-@import "@radix-ui/colors/gray.css";
-@import "@radix-ui/colors/gray-dark.css";
+@import "@radix-ui/colors/slate.css";
+@import "@radix-ui/colors/slate-dark.css";
 
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-gray-100: var(--gray-1);
-  --color-gray-200: var(--gray-2);
-  --color-gray-300: var(--gray-3);
-  --color-gray-400: var(--gray-4);
-  --color-gray-500: var(--gray-5);
-  --color-gray-600: var(--gray-6);
-  --color-gray-700: var(--gray-7);
-  --color-gray-800: var(--gray-8);
-  --color-gray-900: var(--gray-9);
-  --color-gray-1000: var(--gray-10);
-  --color-gray-1100: var(--gray-11);
-  --color-gray-1200: var(--gray-12);
+  /* Using Radix slate for a subtle blue-gray tint */
+  --color-gray-100: var(--slate-1);
+  --color-gray-200: var(--slate-2);
+  --color-gray-300: var(--slate-3);
+  --color-gray-400: var(--slate-4);
+  --color-gray-500: var(--slate-5);
+  --color-gray-600: var(--slate-6);
+  --color-gray-700: var(--slate-7);
+  --color-gray-800: var(--slate-8);
+  --color-gray-900: var(--slate-9);
+  --color-gray-1000: var(--slate-10);
+  --color-gray-1100: var(--slate-11);
+  --color-gray-1200: var(--slate-12);
 
   --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Commit Mono", ui-monospace, monospace;
 }
 
-@layer base {
+@layer utilities {
+  /* Prose styles - in utilities layer to match typography plugin */
   .prose h1 {
     color: var(--color-gray-1200);
-    font-size: var(--font-size-2xl);
+    font-size: var(--text-2xl);
   }
 
   .prose h2 {
     color: var(--color-gray-1200);
-    font-size: var(--font-size-xl);
+    font-size: var(--text-xl);
   }
 
   .prose h3 {
     color: var(--color-gray-1200);
-    font-size: var(--font-size-lg);
+    font-size: var(--text-lg);
   }
 
   .prose p,
@@ -59,7 +61,7 @@
   .prose time {
     color: var(--color-gray-1000);
     font-family: var(--font-mono);
-    font-size: var(--font-size-sm);
+    font-size: var(--text-sm);
     font-weight: var(--font-weight-light);
   }
 }
