@@ -88,7 +88,7 @@ After making intentional UI changes:
 
 1. Run `pnpm run build`
 2. Run `pnpm run test:update`
-3. Commit the updated `*-linux.png` files in `tests/visual.spec.ts-snapshots/`
+3. Commit the updated snapshots in `tests/visual.spec.ts-snapshots/`
 
 ## 👀 Want to learn more?
 
