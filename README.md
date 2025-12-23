@@ -86,7 +86,7 @@ Visual regression tests run automatically on every push and pull request. The te
 - Build the production site
 - Capture screenshots of key pages in light and dark modes
 - Compare against baseline snapshots stored in the repository
-- Fail if visual differences exceed the 1% pixel threshold
+- Fail if visual differences exceed the 0.1% pixel threshold
 
 ### Handling Test Failures
 
