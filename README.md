@@ -64,12 +64,15 @@ All commands are run from the root of the project, from a terminal:
 
 ## 🧪 Visual Regression Testing
 
-This project uses Playwright for visual regression testing to ensure UI consistency.
+This project uses Playwright for visual regression testing to ensure UI consistency. Tests are run manually before deploys.
 
-### Running Tests Locally
+### Running Tests
 
 ```sh
-# Run all visual regression tests
+# Build site first (tests run against built output)
+pnpm run build
+
+# Run visual regression tests
 pnpm run test
 
 # Run tests in interactive UI mode
@@ -79,34 +82,13 @@ pnpm run test:ui
 pnpm run test:update
 ```
 
-### CI Integration
+### Updating Snapshots
 
-Visual regression tests run automatically on every push and pull request. The tests:
+After making intentional UI changes:
 
-- Build the production site
-- Capture screenshots of key pages in light and dark modes
-- Compare against baseline snapshots stored in the repository
-- Fail if visual differences exceed the 0.1% pixel threshold
-
-### Handling Test Failures
-
-If tests fail in CI:
-
-1. Download the `playwright-report` and `playwright-results` artifacts from the failed workflow
-2. Review the diff images to understand what changed
-3. If changes are intentional:
-   - Run `pnpm run test:update` locally to update darwin snapshots
-   - Commit the updated snapshots
-   - CI will generate linux snapshots on the next run
-
-### Platform-Specific Snapshots
-
-Tests generate platform-specific baselines:
-
-- `chromium-darwin`: For local development on macOS
-- `chromium-linux`: For CI environment (Ubuntu)
-
-This ensures tests pass consistently across different operating systems.
+1. Run `pnpm run build`
+2. Run `pnpm run test:update`
+3. Commit the updated `*-linux.png` files in `tests/visual.spec.ts-snapshots/`
 
 ## 👀 Want to learn more?
 
