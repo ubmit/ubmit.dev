@@ -8,8 +8,8 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "format": "prettier --write ./src --plugin=prettier-plugin-astro",
-    "format:check": "prettier --check ./src --plugin=prettier-plugin-astro"
+    "format": "prettier --write ./src --plugin=prettier-plugin-astro --plugin=prettier-plugin-tailwindcss",
+    "format:check": "prettier --check ./src --plugin=prettier-plugin-astro --plugin=prettier-plugin-tailwindcss"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",

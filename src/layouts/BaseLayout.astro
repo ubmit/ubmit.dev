@@ -3,8 +3,21 @@ import Header from "../components/Header.astro";
 ---
 
 <body class="bg-gray-100">
+  <!-- Grid pattern background -->
   <div
-    class="mx-auto my-32 max-w-[692px] px-6 text-gray-1200 antialiased sm:my-16"
+    class="pointer-events-none fixed inset-0 bg-[radial-gradient(var(--color-gray-600)_1px,transparent_1px)] bg-size-[16px_16px] opacity-40"
+  >
+  </div>
+
+  <!-- Top fade -->
+  <div
+    class="pointer-events-none fixed top-0 left-0 z-50 h-12 w-full bg-gray-100 backdrop-blur-xl [-webkit-mask-image:linear-gradient(to_bottom,black,transparent)]"
+  >
+  </div>
+
+  <!-- Content -->
+  <div
+    class="text-gray-1200 relative mx-auto my-24 max-w-[692px] px-6 antialiased sm:my-16"
   >
     <Header />
     <main>

@@ -1,0 +1,40 @@
+---
+import FormattedDate from "./FormattedDate.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  pubDate: Date;
+  href: string;
+  featured?: boolean;
+}
+
+const { title, description, pubDate, href, featured = false } = Astro.props;
+---
+
+<li
+  class="group -mx-3 flex flex-col rounded-md px-3 no-underline transition-colors hover:cursor-pointer hover:bg-gray-200 sm:py-3"
+>
+  <a href={href} class="text-gray-1100 group-hover:text-gray-1200">
+    <div class="flex items-start gap-2">
+      <span class="flex-1 font-medium">{title}</span>
+      {
+        featured && (
+          <span class="text-gray-1100 shrink-0 rounded-full border border-gray-400 bg-gray-200 px-2 py-0.5 text-xs">
+            Featured
+          </span>
+        )
+      }
+    </div>
+    {
+      description && (
+        <span class="text-gray-1000 mt-1 block text-sm leading-relaxed">
+          {description}
+        </span>
+      )
+    }
+    <span class="mt-2 block font-mono text-xs text-gray-900">
+      <FormattedDate date={pubDate} />
+    </span>
+  </a>
+</li>
