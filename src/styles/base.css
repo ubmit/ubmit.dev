@@ -105,3 +105,40 @@ html {
     background-color: var(--shiki-dark-bg) !important;
   }
 }
+
+/* Activity Graph styles */
+.activity-graph {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 200px;
+  min-width: fit-content;
+}
+
+.activity-bar {
+  display: flex;
+  flex-direction: column;
+  width: 4px;
+  border-radius: 2px 2px 0 0;
+  overflow: hidden;
+}
+
+.activity-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 8px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.activity-day:hover .activity-tooltip {
+  opacity: 1;
+}
+
+.activity-day:hover .activity-bar {
+  opacity: 0.7;
+}
