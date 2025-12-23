@@ -7,14 +7,14 @@ interface Props {
 const { title, href } = Astro.props;
 ---
 
-<div class="mb-5 sm:mb-4">
+<h2 class="mb-5 font-medium sm:mb-4">
   {
     Boolean(href) ? (
       <a class="hover:text-gray-1100" href={href}>
         {title}
       </a>
     ) : (
-      <h2 class="font-medium">{title}</h2>
+      <span>{title}</span>
     )
   }
-</div>
+</h2>
