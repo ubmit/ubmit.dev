@@ -33,9 +33,9 @@
 ## Testing & CI
 
 - **Visual Regression**: Run manually before deploys (`pnpm run test`)
-- **Snapshots**: All snapshots use linux naming (`*-chromium-linux.png`) for consistency
+- **Snapshots**: Platform-specific (`*-chromium-darwin.png` for macOS)
 - **CI Jobs**: lint-and-format, type-check, build
 - **Updating Snapshots After UI Changes**:
   1. Run `pnpm run build` (snapshots test against built site)
   2. Run `pnpm run test:update`
-  3. Commit the updated `*-linux.png` files in `tests/visual.spec.ts-snapshots/`
+  3. Commit the updated snapshots in `tests/visual.spec.ts-snapshots/`

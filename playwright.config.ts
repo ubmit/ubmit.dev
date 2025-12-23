@@ -31,6 +31,4 @@ export default defineConfig({
       maxDiffPixelRatio: 0.001, // Allow 0.1% pixel difference for minor rendering variations
     },
   },
-  snapshotPathTemplate:
-    "{testDir}/{testFileDir}/{testFileName}-snapshots/{arg}-{projectName}-linux{ext}",
 });
