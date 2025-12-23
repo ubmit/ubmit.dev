@@ -1,17 +1,12 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-import { getCollection } from "astro:content";
+import { SITE_TITLE, SITE_DESCRIPTION, postsSortedByPubDate } from "../consts";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import PostCard from "../components/PostCard.astro";
 import SubtleLink from "../components/SubtleLink.astro";
 import ArrowUpRightIcon from "../components/ArrowUpRightIcon.astro";
 import "../styles/base.css";
-
-const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
 ---
 
 <html lang="en">
@@ -20,7 +15,7 @@ const posts = (await getCollection("blog")).sort(
   </head>
   <BaseLayout>
     <!-- About Section -->
-    <section class="mt-8 sm:mt-16">
+    <section>
       <SectionHeading title="About" />
       <p class="text-gray-1100 leading-7">
         I'm Gui, a Frontend Engineer focused on crafting polished and user-first
@@ -80,10 +75,10 @@ const posts = (await getCollection("blog")).sort(
 
     <!-- Writing Section -->
     <section class="mt-14 sm:mt-20">
-      <SectionHeading title="Writing" />
+      <SectionHeading title="Writing" href="/writing" />
       <ul class="flex flex-col gap-2">
         {
-          posts.map((post, index) => (
+          postsSortedByPubDate.map((post, index) => (
             <PostCard
               title={post.data.title}
               description={post.data.description}
