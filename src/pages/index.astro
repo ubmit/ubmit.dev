@@ -51,7 +51,7 @@ const posts = (await getCollection("blog")).sort(
         </p>
         <p class="text-sm">
           <a
-            href="/agentic-engineering-without-lock-in/"
+            href="/writing/agentic-engineering-without-lock-in/"
             class="text-gray-1200 hover:text-gray-1100 inline-flex items-center gap-1 font-medium transition-colors"
           >
             Read more: Agentic engineering without lock-in
@@ -88,7 +88,7 @@ const posts = (await getCollection("blog")).sort(
               title={post.data.title}
               description={post.data.description}
               pubDate={post.data.pubDate}
-              href={`/${post.id}/`}
+              href={`/writing/${post.id}/`}
               featured={index === 0}
             />
           ))

@@ -27,5 +27,11 @@ export default defineConfig({
     "/meet": "https://cal.com/ubmit/30min",
     "/quick-meet": "https://cal.com/ubmit/15min",
     "/resume": "/resume.pdf",
+    "/agentic-engineering-without-lock-in/":
+      "/writing/agentic-engineering-without-lock-in/",
+    "/introduction-to-functional-programming-in-javascript/":
+      "/writing/introduction-to-functional-programming-in-javascript/",
+    "/use-an-object-instead-of-a-switch/":
+      "/writing/use-an-object-instead-of-a-switch/",
   },
 });
