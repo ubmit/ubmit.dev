@@ -1,0 +1,34 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import "../styles/base.css";
+import { SITE_DESCRIPTION, postsSortedByPubDate } from "../consts";
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title="Writing" description={SITE_DESCRIPTION} />
+  </head>
+  <BaseLayout>
+    <ul class="space-y-4">
+      {
+        postsSortedByPubDate.map((post) => (
+          <li>
+            <a
+              href={`/writing/${post.id}/`}
+              class="group text-gray-1100 flex items-center justify-between"
+            >
+              <span class="group-hover:text-gray-1200 transition-colors">
+                {post.data.title}
+              </span>
+              <span class="text-sm">
+                <FormattedDate date={post.data.pubDate} />
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </BaseLayout>
+</html>
