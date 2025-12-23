@@ -5,8 +5,9 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
-  reporter: "html",
+  workers: process.env.CI ? 2 : undefined,
+  reporter: process.env.CI ? [["html"], ["github"]] : "html",
+  timeout: 10000, // 10s per test
   use: {
     baseURL: "http://localhost:4321",
     trace: "on-first-retry",
@@ -21,10 +22,15 @@ export default defineConfig({
     command: "pnpm run preview",
     port: 4321,
     reuseExistingServer: !process.env.CI,
+    timeout: 30000, // 30s for server startup
+    stdout: "pipe",
+    stderr: "pipe",
   },
   expect: {
     toHaveScreenshot: {
-      maxDiffPixelRatio: 0.01, // Allow 1% pixel difference
+      maxDiffPixelRatio: 0.001, // Allow 0.1% pixel difference for minor rendering variations
     },
   },
+  snapshotPathTemplate:
+    "{testDir}/{testFileDir}/{testFileName}-snapshots/{arg}-{projectName}-linux{ext}",
 });
