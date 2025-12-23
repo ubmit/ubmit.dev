@@ -20,7 +20,7 @@ const { title, description, pubDate, href, featured = false } = Astro.props;
       <span class="flex-1 font-medium">{title}</span>
       {
         featured && (
-          <span class="shrink-0 rounded-full border border-gray-400 bg-gray-200 px-2 py-0.5 text-xs text-gray-1100">
+          <span class="text-gray-1100 shrink-0 rounded-full border border-gray-400 bg-gray-200 px-2 py-0.5 text-xs">
             Featured
           </span>
         )
@@ -28,7 +28,7 @@ const { title, description, pubDate, href, featured = false } = Astro.props;
     </div>
     {
       description && (
-        <span class="mt-1 block text-sm leading-relaxed text-gray-1000">
+        <span class="text-gray-1000 mt-1 block text-sm leading-relaxed">
           {description}
         </span>
       )
