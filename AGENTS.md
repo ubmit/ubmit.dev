@@ -33,7 +33,10 @@
 ## Testing & CI
 
 - **Visual Regression**: Automated in CI on every push/PR
-- **Snapshots**: Platform-specific (chromium-darwin for local, chromium-linux for CI)
-- **CI Jobs**: lint-and-format, type-check, build, visual-regression (run in parallel)
+- **Snapshots**: All snapshots use linux naming (`*-chromium-linux.png`) for CI/local consistency
+- **CI Jobs**: lint-and-format, type-check, build, visual-regression (build reused via artifact)
 - **Failure Artifacts**: Test reports and diff images uploaded on visual test failures
-- **Snapshot Updates**: Run `pnpm run test:update` locally after intentional UI changes, commit updated snapshots
+- **Updating Snapshots After UI Changes**:
+  1. Run `pnpm run build` (snapshots test against built site)
+  2. Run `pnpm run test:update`
+  3. Commit the updated `*-linux.png` files in `tests/visual.spec.ts-snapshots/`
