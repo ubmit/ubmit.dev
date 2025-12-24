@@ -5,11 +5,14 @@ import type {
   StravaSportType,
 } from "../types/strava";
 
+const STRAVA_API_BASE = "https://www.strava.com/api/v3";
+const STRAVA_TOKEN_URL = "https://www.strava.com/oauth/token";
+
 /**
  * Map Strava sport types to our simplified categories
  */
-export function mapSportType(type: StravaSportType): SportCategory {
-  const sportMap: Record<StravaSportType, SportCategory> = {
+export function mapSportType(type: StravaSportType): SportCategory | null {
+  const sportMap: Partial<Record<StravaSportType, SportCategory>> = {
     Swim: "swim",
     Run: "run",
     TrailRun: "run",
@@ -20,7 +23,7 @@ export function mapSportType(type: StravaSportType): SportCategory {
     VirtualRide: "ride",
     GravelRide: "ride",
   };
-  return sportMap[type];
+  return sportMap[type] ?? null;
 }
 
 /**
@@ -73,9 +76,21 @@ export function getMockActivities(): DayActivity[] {
   }
 
   // Fill in empty days to ensure continuous timeline
+  return fillEmptyDays(activities, sixMonthsAgo, today);
+}
+
+/**
+ * Fill gaps in activity data to ensure continuous timeline
+ */
+function fillEmptyDays(
+  activities: Map<string, DayActivity>,
+  startDate: Date,
+  endDate: Date,
+): DayActivity[] {
   const allDays: DayActivity[] = [];
-  const fillDate = new Date(sixMonthsAgo);
-  while (fillDate <= today) {
+  const fillDate = new Date(startDate);
+
+  while (fillDate <= endDate) {
     const dateStr = fillDate.toISOString().split("T")[0];
     allDays.push(activities.get(dateStr) || { date: dateStr });
     fillDate.setDate(fillDate.getDate() + 1);
@@ -85,14 +100,66 @@ export function getMockActivities(): DayActivity[] {
 }
 
 /**
- * Fetch activities from Strava API (future implementation)
+ * Get a new access token using the refresh token
  */
-export async function fetchStravaActivities(): Promise<StravaActivity[]> {
-  // TODO: Implement when Strava API credentials are available
-  // 1. Check if refresh token needs renewal
-  // 2. Fetch activities from /athlete/activities
-  // 3. Return normalized data
-  throw new Error("Strava API integration not yet implemented");
+async function refreshAccessToken(): Promise<string> {
+  const response = await fetch(STRAVA_TOKEN_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      client_id: import.meta.env.STRAVA_CLIENT_ID,
+      client_secret: import.meta.env.STRAVA_CLIENT_SECRET,
+      refresh_token: import.meta.env.STRAVA_REFRESH_TOKEN,
+      grant_type: "refresh_token",
+    }),
+  });
+
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(`Failed to refresh token: ${response.status} ${error}`);
+  }
+
+  const data = await response.json();
+  return data.access_token;
+}
+
+/**
+ * Fetch activities from Strava API
+ */
+async function fetchStravaActivities(
+  accessToken: string,
+  after: number,
+): Promise<StravaActivity[]> {
+  const allActivities: StravaActivity[] = [];
+  let page = 1;
+  const perPage = 100;
+
+  while (true) {
+    const url = new URL(`${STRAVA_API_BASE}/athlete/activities`);
+    url.searchParams.set("after", after.toString());
+    url.searchParams.set("page", page.toString());
+    url.searchParams.set("per_page", perPage.toString());
+
+    const response = await fetch(url.toString(), {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(`Strava API error: ${response.status} ${error}`);
+    }
+
+    const activities: StravaActivity[] = await response.json();
+
+    if (activities.length === 0) break;
+
+    allActivities.push(...activities);
+
+    if (activities.length < perPage) break;
+    page++;
+  }
+
+  return allActivities;
 }
 
 /**
@@ -100,12 +167,17 @@ export async function fetchStravaActivities(): Promise<StravaActivity[]> {
  */
 export function transformStravaActivities(
   activities: StravaActivity[],
+  startDate: Date,
+  endDate: Date,
 ): DayActivity[] {
   const dayMap = new Map<string, DayActivity>();
 
   for (const activity of activities) {
     const date = activity.start_date.split("T")[0];
     const category = mapSportType(activity.sport_type);
+
+    // Skip unsupported activity types
+    if (!category) continue;
 
     if (!dayMap.has(date)) {
       dayMap.set(date, { date });
@@ -117,39 +189,49 @@ export function transformStravaActivities(
     if (category === "swim") {
       dayActivity.swim = (dayActivity.swim || 0) + activity.distance;
     } else if (category === "run") {
-      dayActivity.run = (dayActivity.run || 0) + activity.distance / 1000; // Convert to km
+      dayActivity.run = (dayActivity.run || 0) + activity.distance / 1000;
     } else if (category === "ride") {
-      dayActivity.ride = (dayActivity.ride || 0) + activity.distance / 1000; // Convert to km
+      dayActivity.ride = (dayActivity.ride || 0) + activity.distance / 1000;
     }
   }
 
-  return Array.from(dayMap.values()).sort((a, b) =>
-    a.date.localeCompare(b.date),
-  );
+  // Fill in empty days for continuous timeline
+  return fillEmptyDays(dayMap, startDate, endDate);
 }
 
 /**
- * Main export: Get activities (uses mock data for now)
+ * Main export: Get activities (real API or mock data)
  */
 export async function getActivities(): Promise<DayActivity[]> {
-  // Check if Strava credentials are available
   const hasStravaCredentials =
     import.meta.env.STRAVA_REFRESH_TOKEN &&
     import.meta.env.STRAVA_CLIENT_ID &&
     import.meta.env.STRAVA_CLIENT_SECRET;
 
-  if (hasStravaCredentials) {
-    try {
-      const stravaActivities = await fetchStravaActivities();
-      return transformStravaActivities(stravaActivities);
-    } catch (error) {
-      console.warn(
-        "Failed to fetch Strava activities, using mock data:",
-        error,
-      );
-      return getMockActivities();
-    }
+  if (!hasStravaCredentials) {
+    console.log("No Strava credentials, using mock data");
+    return getMockActivities();
   }
 
-  return getMockActivities();
+  try {
+    const accessToken = await refreshAccessToken();
+
+    // Fetch last 6 months of activities
+    const today = new Date();
+    const sixMonthsAgo = new Date(today);
+    sixMonthsAgo.setMonth(today.getMonth() - 6);
+    const afterTimestamp = Math.floor(sixMonthsAgo.getTime() / 1000);
+
+    const stravaActivities = await fetchStravaActivities(
+      accessToken,
+      afterTimestamp,
+    );
+
+    console.log(`Fetched ${stravaActivities.length} activities from Strava`);
+
+    return transformStravaActivities(stravaActivities, sixMonthsAgo, today);
+  } catch (error) {
+    console.warn("Failed to fetch Strava activities, using mock data:", error);
+    return getMockActivities();
+  }
 }
