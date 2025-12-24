@@ -27,7 +27,7 @@ export function ActivityGraph({ activities }: Props) {
       {/* Activity Graph */}
       <Tooltip.Provider delay={0} closeDelay={0}>
         <div className="relative">
-          <div className="overflow-x-auto pb-4">
+          <div className="scrollbar-hide overflow-x-auto pb-4">
             <div className="relative flex h-50 min-w-fit items-end gap-0.5">
               {activities.map((day) => {
                 const swimKm = (day.swim || 0) / 1000;
