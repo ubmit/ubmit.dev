@@ -118,5 +118,3 @@ export function ActivityGraph({ activities }: Props) {
     </section>
   );
 }
-
-export default ActivityGraph;
