@@ -22,9 +22,9 @@ export function SummaryStats({ activities }: Props) {
   ).length;
 
   return (
-    <div className="mb-4 flex justify-between font-mono text-sm">
+    <div className="flex justify-between pb-6 font-mono text-sm">
       <span>{activeDays} days</span>
-      <div className="flex gap-6 text-sm">
+      <div className="text-gray-1100 flex gap-6 text-sm">
         <div className="flex items-center gap-1">
           <SwimmingIcon className="size-4" />
           {formatDistance(totalSwim, "m")}m{" "}

@@ -79,31 +79,32 @@ export function ActivityGraph({ activities }: Props) {
                           <div className="text-gray-1200 mb-2">
                             {formatDate(day.date)}
                           </div>
-                          <ul className="text-gray-1100 space-y-2">
-                            {day.swim && (
-                              <li className="flex items-center gap-1">
-                                <SwimmingIcon className="size-4" />
-                                {formatDistance(day.swim, "m")}m
-                              </li>
-                            )}
-                            {day.ride && (
-                              <li className="flex items-center gap-1">
-                                <RidingIcon className="size-4" />
-                                {formatDistance(day.ride, "km")}km
-                              </li>
-                            )}
-                            {day.run && (
-                              <li className="flex items-center gap-1">
-                                <RunningIcon className="size-4" />
-                                {formatDistance(day.run, "km")}km
-                              </li>
-                            )}
-                            {!hasActivity && (
-                              <div className="font-mono text-sm text-gray-900">
-                                Rest day
-                              </div>
-                            )}
-                          </ul>
+                          {hasActivity ? (
+                            <ul className="text-gray-1100 space-y-2">
+                              {day.swim && (
+                                <li className="flex items-center gap-1">
+                                  <SwimmingIcon className="size-4" />
+                                  {formatDistance(day.swim, "m")}m
+                                </li>
+                              )}
+                              {day.ride && (
+                                <li className="flex items-center gap-1">
+                                  <RidingIcon className="size-4" />
+                                  {formatDistance(day.ride, "km")}km
+                                </li>
+                              )}
+                              {day.run && (
+                                <li className="flex items-center gap-1">
+                                  <RunningIcon className="size-4" />
+                                  {formatDistance(day.run, "km")}km
+                                </li>
+                              )}
+                            </ul>
+                          ) : (
+                            <div className="font-mono text-sm text-gray-900">
+                              Rest day
+                            </div>
+                          )}
                         </Tooltip.Popup>
                       </Tooltip.Positioner>
                     </Tooltip.Portal>

@@ -134,11 +134,11 @@ function transformStravaActivities(
 
     // Accumulate distances for same day, same sport
     if (category === "swim") {
-      dayActivity.swim = (dayActivity.swim || 0) + activity.distance;
+      dayActivity.swim = (dayActivity.swim ?? 0) + activity.distance;
     } else if (category === "run") {
-      dayActivity.run = (dayActivity.run || 0) + activity.distance / 1000;
+      dayActivity.run = (dayActivity.run ?? 0) + activity.distance / 1000;
     } else if (category === "ride") {
-      dayActivity.ride = (dayActivity.ride || 0) + activity.distance / 1000;
+      dayActivity.ride = (dayActivity.ride ?? 0) + activity.distance / 1000;
     }
   }
 
