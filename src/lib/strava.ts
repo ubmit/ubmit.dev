@@ -11,7 +11,7 @@ const STRAVA_TOKEN_URL = "https://www.strava.com/oauth/token";
 /**
  * Map Strava sport types to our simplified categories
  */
-export function mapSportType(type: StravaSportType): SportCategory | null {
+function mapSportType(type: StravaSportType): SportCategory | null {
   const sportMap: Partial<Record<StravaSportType, SportCategory>> = {
     Swim: "swim",
     Run: "run",
@@ -24,59 +24,6 @@ export function mapSportType(type: StravaSportType): SportCategory | null {
     GravelRide: "ride",
   };
   return sportMap[type] ?? null;
-}
-
-/**
- * Generate mock activities for the last 6 months
- */
-export function getMockActivities(): DayActivity[] {
-  const activities: Map<string, DayActivity> = new Map();
-  const today = new Date();
-  const sixMonthsAgo = new Date(today);
-  sixMonthsAgo.setMonth(today.getMonth() - 6);
-
-  // Seed random with consistent value for reproducibility
-  let seed = 12345;
-  const random = () => {
-    seed = (seed * 9301 + 49297) % 233280;
-    return seed / 233280;
-  };
-
-  // Generate activities over the past 6 months
-  const currentDate = new Date(sixMonthsAgo);
-  while (currentDate <= today) {
-    const dateStr = currentDate.toISOString().split("T")[0];
-
-    // 60% chance of being an active day
-    if (random() < 0.6) {
-      const activity: DayActivity = { date: dateStr };
-
-      // Swim: 30% chance on active days
-      if (random() < 0.3) {
-        activity.swim = Math.floor(1000 + random() * 2500); // 1000-3500m
-      }
-
-      // Run: 50% chance on active days
-      if (random() < 0.5) {
-        activity.run = Math.round((5 + random() * 16) * 10) / 10; // 5-21km
-      }
-
-      // Ride: 40% chance on active days
-      if (random() < 0.4) {
-        activity.ride = Math.round((20 + random() * 80) * 10) / 10; // 20-100km
-      }
-
-      // Only add if at least one activity exists
-      if (activity.swim || activity.run || activity.ride) {
-        activities.set(dateStr, activity);
-      }
-    }
-
-    currentDate.setDate(currentDate.getDate() + 1);
-  }
-
-  // Fill in empty days to ensure continuous timeline
-  return fillEmptyDays(activities, sixMonthsAgo, today);
 }
 
 /**
@@ -165,7 +112,7 @@ async function fetchStravaActivities(
 /**
  * Transform Strava activities to DayActivity format
  */
-export function transformStravaActivities(
+function transformStravaActivities(
   activities: StravaActivity[],
   startDate: Date,
   endDate: Date,
@@ -200,38 +147,21 @@ export function transformStravaActivities(
 }
 
 /**
- * Main export: Get activities (real API or mock data)
+ * Main export: Get activities from Strava API
  */
 export async function getActivities(): Promise<DayActivity[]> {
-  const hasStravaCredentials =
-    import.meta.env.STRAVA_REFRESH_TOKEN &&
-    import.meta.env.STRAVA_CLIENT_ID &&
-    import.meta.env.STRAVA_CLIENT_SECRET;
+  const accessToken = await refreshAccessToken();
 
-  if (!hasStravaCredentials) {
-    console.log("No Strava credentials, using mock data");
-    return getMockActivities();
-  }
+  // Fetch last 6 months of activities
+  const today = new Date();
+  const sixMonthsAgo = new Date(today);
+  sixMonthsAgo.setMonth(today.getMonth() - 6);
+  const afterTimestamp = Math.floor(sixMonthsAgo.getTime() / 1000);
 
-  try {
-    const accessToken = await refreshAccessToken();
+  const stravaActivities = await fetchStravaActivities(
+    accessToken,
+    afterTimestamp,
+  );
 
-    // Fetch last 6 months of activities
-    const today = new Date();
-    const sixMonthsAgo = new Date(today);
-    sixMonthsAgo.setMonth(today.getMonth() - 6);
-    const afterTimestamp = Math.floor(sixMonthsAgo.getTime() / 1000);
-
-    const stravaActivities = await fetchStravaActivities(
-      accessToken,
-      afterTimestamp,
-    );
-
-    console.log(`Fetched ${stravaActivities.length} activities from Strava`);
-
-    return transformStravaActivities(stravaActivities, sixMonthsAgo, today);
-  } catch (error) {
-    console.warn("Failed to fetch Strava activities, using mock data:", error);
-    return getMockActivities();
-  }
+  return transformStravaActivities(stravaActivities, sixMonthsAgo, today);
 }
