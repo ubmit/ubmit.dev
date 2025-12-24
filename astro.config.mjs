@@ -4,6 +4,8 @@ import tailwindcss from "@tailwindcss/vite";
 
 import sitemap from "@astrojs/sitemap";
 
+import react from "@astrojs/react";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://ubmit.dev",
@@ -18,7 +20,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  integrations: [mdx(), sitemap()],
+  integrations: [mdx(), sitemap(), react()],
   redirects: {
     "/twitter": "https://x.com/ubmit",
     "/x": "https://x.com/ubmit",
