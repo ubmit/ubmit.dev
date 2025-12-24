@@ -64,14 +64,13 @@
     font-size: var(--text-sm);
     font-weight: var(--font-weight-light);
   }
+}
 
-  /* Hide scrollbars while keeping scroll functionality */
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
+@utility scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 
-  .scrollbar-hide::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
   }
 }
