@@ -1,0 +1,27 @@
+name: Scheduled Rebuild
+
+on:
+  schedule:
+    # Runs daily at 6 AM UTC (adjust timezone as needed)
+    - cron: "0 6 * * *"
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  trigger-rebuild:
+    name: Trigger Rebuild
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Create empty commit
+        run: |
+          git commit --allow-empty -m "chore: trigger scheduled rebuild for Strava data"
+          git push
