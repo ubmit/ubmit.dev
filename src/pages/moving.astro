@@ -14,8 +14,6 @@ const activities = await getActivities();
     <BaseHead title="Moving" description={SITE_DESCRIPTION} />
   </head>
   <BaseLayout>
-    <section>
-      <ActivityGraph activities={activities} client:load />
-    </section>
+    <ActivityGraph activities={activities} client:load />
   </BaseLayout>
 </html>
