@@ -7,6 +7,9 @@ import type {
 
 const STRAVA_API_BASE = "https://www.strava.com/api/v3";
 const STRAVA_TOKEN_URL = "https://www.strava.com/oauth/token";
+const MONTHS_TO_FETCH = 12;
+const STRAVA_PAGE_SIZE = 100;
+const RATE_LIMIT_DELAY_MS = 100;
 
 /**
  * Map Strava sport types to our simplified categories
@@ -50,13 +53,23 @@ function fillEmptyDays(
  * Get a new access token using the refresh token
  */
 async function refreshAccessToken(): Promise<string> {
+  const clientId = import.meta.env.STRAVA_CLIENT_ID;
+  const clientSecret = import.meta.env.STRAVA_CLIENT_SECRET;
+  const refreshToken = import.meta.env.STRAVA_REFRESH_TOKEN;
+
+  if (!clientId || !clientSecret || !refreshToken) {
+    throw new Error(
+      "Missing required Strava environment variables (STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET, STRAVA_REFRESH_TOKEN)",
+    );
+  }
+
   const response = await fetch(STRAVA_TOKEN_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      client_id: import.meta.env.STRAVA_CLIENT_ID,
-      client_secret: import.meta.env.STRAVA_CLIENT_SECRET,
-      refresh_token: import.meta.env.STRAVA_REFRESH_TOKEN,
+      client_id: clientId,
+      client_secret: clientSecret,
+      refresh_token: refreshToken,
       grant_type: "refresh_token",
     }),
   });
@@ -79,13 +92,12 @@ async function fetchStravaActivities(
 ): Promise<StravaActivity[]> {
   const allActivities: StravaActivity[] = [];
   let page = 1;
-  const perPage = 100;
 
   while (true) {
     const url = new URL(`${STRAVA_API_BASE}/athlete/activities`);
     url.searchParams.set("after", after.toString());
     url.searchParams.set("page", page.toString());
-    url.searchParams.set("per_page", perPage.toString());
+    url.searchParams.set("per_page", STRAVA_PAGE_SIZE.toString());
 
     const response = await fetch(url.toString(), {
       headers: { Authorization: `Bearer ${accessToken}` },
@@ -102,8 +114,11 @@ async function fetchStravaActivities(
 
     allActivities.push(...activities);
 
-    if (activities.length < perPage) break;
+    if (activities.length < STRAVA_PAGE_SIZE) break;
+
     page++;
+    // Small delay to avoid rate limiting
+    await new Promise((resolve) => setTimeout(resolve, RATE_LIMIT_DELAY_MS));
   }
 
   return allActivities;
@@ -152,16 +167,18 @@ function transformStravaActivities(
 export async function getActivities(): Promise<DayActivity[]> {
   const accessToken = await refreshAccessToken();
 
-  // Fetch last 6 months of activities
+  // Fetch last N months of activities
   const today = new Date();
-  const sixMonthsAgo = new Date(today);
-  sixMonthsAgo.setMonth(today.getMonth() - 6);
-  const afterTimestamp = Math.floor(sixMonthsAgo.getTime() / 1000);
+  today.setHours(0, 0, 0, 0); // Normalize to midnight
+  const startDate = new Date(today);
+  startDate.setDate(1); // Set to first of month
+  startDate.setMonth(today.getMonth() - MONTHS_TO_FETCH);
+  const afterTimestamp = Math.floor(startDate.getTime() / 1000);
 
   const stravaActivities = await fetchStravaActivities(
     accessToken,
     afterTimestamp,
   );
 
-  return transformStravaActivities(stravaActivities, sixMonthsAgo, today);
+  return transformStravaActivities(stravaActivities, startDate, today);
 }
