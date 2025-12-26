@@ -10,12 +10,22 @@ const STRAVA_API_BASE = "https://www.strava.com/api/v3";
 const STRAVA_TOKEN_URL = "https://www.strava.com/oauth/token";
 const MONTHS_TO_FETCH = 12;
 const STRAVA_PAGE_SIZE = 100;
-const RATE_LIMIT_DELAY_MS = 100;
 
 const envSchema = z.object({
   STRAVA_CLIENT_ID: z.string().min(1, "STRAVA_CLIENT_ID is required"),
   STRAVA_CLIENT_SECRET: z.string().min(1, "STRAVA_CLIENT_SECRET is required"),
   STRAVA_REFRESH_TOKEN: z.string().min(1, "STRAVA_REFRESH_TOKEN is required"),
+});
+
+const tokenResponseSchema = z.object({
+  access_token: z.string(),
+});
+
+const stravaActivitySchema = z.object({
+  id: z.number(),
+  sport_type: z.string(),
+  distance: z.number(),
+  start_date: z.string(),
 });
 
 /**
@@ -83,7 +93,7 @@ async function refreshAccessToken(): Promise<string> {
     throw new Error(`Failed to refresh token: ${response.status} ${error}`);
   }
 
-  const data = await response.json();
+  const data = tokenResponseSchema.parse(await response.json());
   return data.access_token;
 }
 
@@ -112,7 +122,13 @@ async function fetchStravaActivities(
       throw new Error(`Strava API error: ${response.status} ${error}`);
     }
 
-    const activities: StravaActivity[] = await response.json();
+    const rawActivities = z
+      .array(stravaActivitySchema)
+      .parse(await response.json());
+    const activities: StravaActivity[] = rawActivities.map((a) => ({
+      ...a,
+      sport_type: a.sport_type as StravaSportType,
+    }));
 
     if (activities.length === 0) break;
 
@@ -121,8 +137,6 @@ async function fetchStravaActivities(
     if (activities.length < STRAVA_PAGE_SIZE) break;
 
     page++;
-    // Small delay to avoid rate limiting
-    await new Promise((resolve) => setTimeout(resolve, RATE_LIMIT_DELAY_MS));
   }
 
   return allActivities;
