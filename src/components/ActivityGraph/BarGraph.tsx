@@ -1,4 +1,5 @@
 import { Tooltip } from "@base-ui/react/tooltip";
+import { useLayoutEffect, useRef, useState } from "react";
 
 import { RidingIcon } from "./RidingIcon";
 import { RunningIcon } from "./RunningIcon";
@@ -8,6 +9,7 @@ import type { DayActivity } from "../../types/strava";
 import { formatDate } from "./formatDate";
 import { formatDistance } from "./formatDistance";
 import { getMaxActivityDistance } from "./getMaxActivityDistance";
+import { cn } from "../../utils";
 
 type Props = {
   activities: DayActivity[];
@@ -18,10 +20,26 @@ const MAX_BAR_HEIGHT = 200;
 
 export function BarGraph({ activities }: Props) {
   const maxActivityDistance = getMaxActivityDistance(activities);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useLayoutEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollLeft =
+        scrollContainerRef.current.scrollWidth;
+      setIsScrolled(true);
+    }
+  }, []);
 
   return (
     <Tooltip.Provider delay={0} closeDelay={0}>
-      <div className="scrollbar-hide overflow-x-auto">
+      <div
+        ref={scrollContainerRef}
+        className={cn(
+          "scrollbar-hide overflow-x-auto transition-opacity duration-200",
+          isScrolled ? "opacity-100" : "opacity-0",
+        )}
+      >
         <div className="flex h-50 items-end gap-1">
           {activities.map((day) => {
             const swimDistance = (day.swim ?? 0) / 1000;
