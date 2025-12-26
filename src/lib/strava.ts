@@ -1,3 +1,4 @@
+import { z } from "astro/zod";
 import type {
   DayActivity,
   SportCategory,
@@ -10,6 +11,12 @@ const STRAVA_TOKEN_URL = "https://www.strava.com/oauth/token";
 const MONTHS_TO_FETCH = 12;
 const STRAVA_PAGE_SIZE = 100;
 const RATE_LIMIT_DELAY_MS = 100;
+
+const envSchema = z.object({
+  STRAVA_CLIENT_ID: z.string().min(1, "STRAVA_CLIENT_ID is required"),
+  STRAVA_CLIENT_SECRET: z.string().min(1, "STRAVA_CLIENT_SECRET is required"),
+  STRAVA_REFRESH_TOKEN: z.string().min(1, "STRAVA_REFRESH_TOKEN is required"),
+});
 
 /**
  * Map Strava sport types to our simplified categories
@@ -26,6 +33,7 @@ function mapSportType(type: StravaSportType): SportCategory | null {
     VirtualRide: "ride",
     GravelRide: "ride",
   };
+
   return sportMap[type] ?? null;
 }
 
@@ -53,23 +61,19 @@ function fillEmptyDays(
  * Get a new access token using the refresh token
  */
 async function refreshAccessToken(): Promise<string> {
-  const clientId = import.meta.env.STRAVA_CLIENT_ID;
-  const clientSecret = import.meta.env.STRAVA_CLIENT_SECRET;
-  const refreshToken = import.meta.env.STRAVA_REFRESH_TOKEN;
-
-  if (!clientId || !clientSecret || !refreshToken) {
-    throw new Error(
-      "Missing required Strava environment variables (STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET, STRAVA_REFRESH_TOKEN)",
-    );
-  }
+  const env = envSchema.parse({
+    STRAVA_CLIENT_ID: import.meta.env.STRAVA_CLIENT_ID,
+    STRAVA_CLIENT_SECRET: import.meta.env.STRAVA_CLIENT_SECRET,
+    STRAVA_REFRESH_TOKEN: import.meta.env.STRAVA_REFRESH_TOKEN,
+  });
 
   const response = await fetch(STRAVA_TOKEN_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      client_id: clientId,
-      client_secret: clientSecret,
-      refresh_token: refreshToken,
+      client_id: env.STRAVA_CLIENT_ID,
+      client_secret: env.STRAVA_CLIENT_SECRET,
+      refresh_token: env.STRAVA_REFRESH_TOKEN,
       grant_type: "refresh_token",
     }),
   });
