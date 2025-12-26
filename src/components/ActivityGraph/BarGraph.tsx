@@ -1,4 +1,4 @@
-import { Tooltip } from "@base-ui/react";
+import { Tooltip } from "@base-ui/react/tooltip";
 
 import { RidingIcon } from "./RidingIcon";
 import { RunningIcon } from "./RunningIcon";
