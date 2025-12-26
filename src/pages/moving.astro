@@ -1,0 +1,19 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { ActivityGraph } from "../components/ActivityGraph";
+import { getActivities } from "../lib/strava";
+import { SITE_DESCRIPTION } from "../consts";
+import "../styles/base.css";
+
+const activities = await getActivities();
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title="Moving" description={SITE_DESCRIPTION} />
+  </head>
+  <BaseLayout>
+    <ActivityGraph activities={activities} client:load />
+  </BaseLayout>
+</html>
