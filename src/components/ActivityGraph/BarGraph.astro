@@ -1,7 +1,6 @@
 ---
 import type { DayActivity } from "../../types/strava";
 import { formatDate } from "./formatDate";
-import { formatDistance } from "./formatDistance";
 
 type Props = {
   activities: DayActivity[];
@@ -9,73 +8,163 @@ type Props = {
 
 const { activities } = Astro.props;
 
-// Prepare data for Chart.js
-const labels = activities.map((day) => formatDate(day.date));
-const swimData = activities.map((day) => (day.swim ?? 0) / 1000);
-const runData = activities.map((day) => day.run ?? 0);
-const rideData = activities.map((day) => day.ride ?? 0);
-
-const chartConfig = {
-  type: "bar",
-  data: {
-    labels,
-    datasets: [
-      {
-        label: "Swimming (m)",
-        data: swimData,
-        backgroundColor: "rgb(59, 130, 246)",
-        stack: "Stack 0",
-      },
-      {
-        label: "Running (km)",
-        data: runData,
-        backgroundColor: "rgb(34, 197, 94)",
-        stack: "Stack 0",
-      },
-      {
-        label: "Riding (km)",
-        data: rideData,
-        backgroundColor: "rgb(168, 85, 247)",
-        stack: "Stack 0",
-      },
-    ],
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: true,
-    plugins: {
-      legend: {
-        position: "top" as const,
-      },
-      tooltip: {
-        enabled: true,
-      },
-    },
-    scales: {
-      x: {
-        stacked: true,
-      },
-      y: {
-        stacked: true,
-      },
-    },
-  },
+const chartData = {
+  labels: activities.map((day) => formatDate(day.date)),
+  swimData: activities.map((day) => (day.swim ?? 0) / 1000),
+  runData: activities.map((day) => day.run ?? 0),
+  rideData: activities.map((day) => day.ride ?? 0),
 };
 ---
 
-<div class="w-full">
-  <canvas id="activityChart" data-config={JSON.stringify(chartConfig)}></canvas>
+<div class="scrollbar-hide relative w-full overflow-x-auto">
+  <canvas id="activityChart" data-chart={JSON.stringify(chartData)}></canvas>
+  <div
+    id="chartTooltip"
+    class="text-gray-1100 pointer-events-none absolute hidden rounded-md border border-gray-600 bg-gray-200 px-3 py-2 font-mono text-sm whitespace-nowrap"
+  >
+  </div>
 </div>
 
 <script>
   import Chart from "chart.js/auto";
 
+  function getBarColor() {
+    const isDark = document.documentElement.classList.contains("dark");
+    return isDark ? "#b0b4ba" : "#60646c";
+  }
+
+  function formatDistance(value: number, unit: "km" | "m"): string {
+    if (unit === "m") {
+      return Math.round(value * 1000).toString();
+    }
+    return value % 1 === 0 ? value.toString() : value.toFixed(1);
+  }
+
+  const icons = {
+    swimming: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z"></path><path d="M15 9a1 1 0 1 0 2 0 1 1 0 1 0-2 0M6 11l4-2 3.5 3-1.5 2M3 16.75A2.4 2.4 0 0 0 4 17a2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1 2.4 2.4 0 0 1 2 1 2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1 2.4 2.4 0 0 1 2 1 2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 1-.25"></path></svg>`,
+    running: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z"></path><path d="M12 4a1 1 0 1 0 2 0 1 1 0 1 0-2 0M4 17l5 1 .75-1.5M15 21v-4l-4-3 1-6"></path><path d="M7 12V9l5-1 3 3 3 1"></path></svg>`,
+    riding: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M5 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path><path d="M19 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path><path d="M12 19l0 -4l-3 -3l5 -4l2 3l3 0"></path><path d="M17 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path></svg>`,
+  };
+
   const canvas = document.getElementById("activityChart") as HTMLCanvasElement;
   if (canvas) {
-    const configString = canvas.getAttribute("data-config");
-    if (configString) {
-      const config = JSON.parse(configString);
-      new Chart(canvas, config);
+    const dataString = canvas.getAttribute("data-chart");
+    if (dataString) {
+      const data = JSON.parse(dataString);
+      const barThickness = 4;
+      const gap = 2;
+      const chartWidth = data.labels.length * (barThickness + gap);
+      canvas.width = chartWidth;
+      canvas.height = 400;
+
+      const chart = new Chart(canvas, {
+        type: "bar",
+        data: {
+          labels: data.labels,
+          datasets: [
+            {
+              label: "Swimming",
+              data: data.swimData,
+              backgroundColor: getBarColor(),
+              stack: "Stack 0",
+              borderRadius: 4,
+              barThickness,
+            },
+            {
+              label: "Running",
+              data: data.runData,
+              backgroundColor: getBarColor(),
+              stack: "Stack 0",
+              borderRadius: 4,
+              barThickness,
+            },
+            {
+              label: "Riding",
+              data: data.rideData,
+              backgroundColor: getBarColor(),
+              stack: "Stack 0",
+              borderRadius: 4,
+              barThickness,
+            },
+          ],
+        },
+        options: {
+          responsive: false,
+          plugins: {
+            legend: {
+              display: false,
+            },
+            tooltip: {
+              enabled: false,
+              mode: "index",
+              intersect: false,
+              external: function (context) {
+                const tooltip = document.getElementById("chartTooltip");
+                if (!tooltip) return;
+
+                if (context.tooltip.opacity === 0) {
+                  tooltip.classList.add("hidden");
+                  return;
+                }
+
+                const dataPoints = context.tooltip.dataPoints;
+                if (!dataPoints?.length) return;
+
+                const iconKeys = ["swimming", "running", "riding"] as const;
+                const lines = dataPoints
+                  .filter((point) => (point.raw as number) > 0)
+                  .map((point) => {
+                    const value = point.raw as number;
+                    const unit = point.datasetIndex === 0 ? "m" : "km";
+                    const displayValue = formatDistance(value, unit);
+                    const icon = icons[iconKeys[point.datasetIndex]];
+                    return `<div class="flex items-center gap-2">${icon} ${displayValue}${unit}</div>`;
+                  });
+
+                if (lines.length === 0) {
+                  tooltip.classList.add("hidden");
+                  return;
+                }
+
+                tooltip.innerHTML = `<div class="text-gray-1200 mb-1">${context.tooltip.title[0]}</div>${lines.join("")}`;
+                tooltip.classList.remove("hidden");
+
+                const { x, y } = context.tooltip;
+                tooltip.style.left = `${x}px`;
+                tooltip.style.top = `${y}px`;
+              },
+            },
+          },
+          scales: {
+            x: {
+              stacked: true,
+              display: false,
+            },
+            y: {
+              stacked: true,
+              display: false,
+              type: "logarithmic",
+            },
+          },
+        },
+      });
+
+      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+      const handleThemeChange = () => {
+        const newColor = getBarColor();
+        chart.data.datasets.forEach((dataset) => {
+          dataset.backgroundColor = newColor;
+        });
+        chart.update();
+      };
+
+      mediaQuery.addEventListener("change", handleThemeChange);
+
+      document.addEventListener(
+        "astro:before-swap",
+        () => mediaQuery.removeEventListener("change", handleThemeChange),
+        { once: true },
+      );
     }
   }
 </script>

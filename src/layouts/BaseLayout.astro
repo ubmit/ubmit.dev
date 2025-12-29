@@ -32,13 +32,16 @@ import Header from "../components/Header.astro";
     document.documentElement.classList.add(theme);
   }
 
-  let darkColorSchemePref = window.matchMedia("(prefers-color-scheme: dark)");
+  const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-  let systemTheme = darkColorSchemePref.matches ? "dark" : "light";
+  updateTheme(mediaQuery.matches ? "dark" : "light");
 
-  updateTheme(systemTheme);
+  const handleChange = (event) => updateTheme(event.matches ? "dark" : "light");
+  mediaQuery.addEventListener("change", handleChange);
 
-  darkColorSchemePref.addEventListener("change", (e) => {
-    updateTheme(e.matches ? "dark" : "light");
-  });
+  document.addEventListener(
+    "astro:before-swap",
+    () => mediaQuery.removeEventListener("change", handleChange),
+    { once: true },
+  );
 </script>
