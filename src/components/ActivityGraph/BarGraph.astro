@@ -149,6 +149,12 @@ const chartData = {
         },
       });
 
+      // Scroll to the end (most recent data)
+      const scrollContainer = canvas.closest(".overflow-x-auto") as HTMLDivElement;
+      if (scrollContainer) {
+        scrollContainer.scrollLeft = scrollContainer.scrollWidth;
+      }
+
       const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
       const handleThemeChange = () => {
         const newColor = getBarColor();
