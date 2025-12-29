@@ -1,0 +1,45 @@
+---
+import type { DayActivity, SportCategory } from "../../types/strava";
+import { formatDistance } from "./formatDistance";
+import RidingIcon from "./RidingIcon.astro";
+import RunningIcon from "./RunningIcon.astro";
+import SwimmingIcon from "./SwimmingIcon.astro";
+
+type Props = {
+  activities: DayActivity[];
+};
+
+const { activities } = Astro.props;
+
+function getTotalDistance(activities: DayActivity[], sport: SportCategory) {
+  return activities.reduce((sum, day) => sum + (day[sport] ?? 0), 0);
+}
+
+const totalSwim = getTotalDistance(activities, "swim");
+const totalRun = getTotalDistance(activities, "run");
+const totalRide = getTotalDistance(activities, "ride");
+
+const activeDays = activities.filter(
+  (day) => Boolean(day.swim) || Boolean(day.run) || Boolean(day.ride),
+).length;
+---
+
+<div
+  class="flex flex-col gap-1 pb-6 font-mono text-sm sm:flex-row sm:justify-between"
+>
+  <span>{activeDays} days</span>
+  <div class="text-gray-1100 flex gap-6 text-sm">
+    <div class="flex items-center gap-1">
+      <SwimmingIcon class="size-4" />
+      {formatDistance(totalSwim, "m")}m
+    </div>
+    <div class="flex items-center gap-1">
+      <RidingIcon class="size-4" />
+      {formatDistance(totalRide, "km")}km
+    </div>
+    <div class="flex items-center gap-1">
+      <RunningIcon class="size-4" />
+      {formatDistance(totalRun, "km")}km
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+---
+import type { DayActivity } from "../../types/strava";
+import SummaryStats from "./SummaryStats.astro";
+import BarGraph from "./BarGraph.astro";
+
+type Props = {
+  activities: DayActivity[];
+};
+
+const { activities } = Astro.props;
+---
+
+<section>
+  <SummaryStats activities={activities} />
+  <BarGraph activities={activities} />
+</section>
