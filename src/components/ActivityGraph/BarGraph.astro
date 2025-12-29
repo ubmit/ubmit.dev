@@ -1,0 +1,81 @@
+---
+import type { DayActivity } from "../../types/strava";
+import { formatDate } from "./formatDate";
+import { formatDistance } from "./formatDistance";
+
+type Props = {
+  activities: DayActivity[];
+};
+
+const { activities } = Astro.props;
+
+// Prepare data for Chart.js
+const labels = activities.map((day) => formatDate(day.date));
+const swimData = activities.map((day) => (day.swim ?? 0) / 1000);
+const runData = activities.map((day) => day.run ?? 0);
+const rideData = activities.map((day) => day.ride ?? 0);
+
+const chartConfig = {
+  type: "bar",
+  data: {
+    labels,
+    datasets: [
+      {
+        label: "Swimming (m)",
+        data: swimData,
+        backgroundColor: "rgb(59, 130, 246)",
+        stack: "Stack 0",
+      },
+      {
+        label: "Running (km)",
+        data: runData,
+        backgroundColor: "rgb(34, 197, 94)",
+        stack: "Stack 0",
+      },
+      {
+        label: "Riding (km)",
+        data: rideData,
+        backgroundColor: "rgb(168, 85, 247)",
+        stack: "Stack 0",
+      },
+    ],
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: true,
+    plugins: {
+      legend: {
+        position: "top" as const,
+      },
+      tooltip: {
+        enabled: true,
+      },
+    },
+    scales: {
+      x: {
+        stacked: true,
+      },
+      y: {
+        stacked: true,
+      },
+    },
+  },
+};
+---
+
+<div class="w-full">
+  <canvas id="activityChart" data-config={JSON.stringify(chartConfig)}></canvas>
+</div>
+
+<script>
+  import Chart from "chart.js/auto";
+
+  const canvas = document.getElementById("activityChart") as HTMLCanvasElement;
+  if (canvas) {
+    const configString = canvas.getAttribute("data-config");
+    if (configString) {
+      const config = JSON.parse(configString);
+      new Chart(canvas, config);
+    }
+  }
+</script>
