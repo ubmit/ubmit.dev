@@ -40,13 +40,17 @@
   2. Run `pnpm run test:update`
   3. Commit the updated snapshots in `tests/visual.spec.ts-snapshots/`
 
+## Task tracking
+
+Use `bd` for task tracking
+
 ## Landing the Plane (Session Completion)
 
 **When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
 
 **MANDATORY WORKFLOW:**
 
-1. **File issues for remaining work** - Create issues for anything that needs follow-up
+1. **File issues for remaining work** - Create tasks for anything that needs follow-up
 2. **Run quality gates** (if code changed) - Tests, linters, builds
 3. **Update issue status** - Close finished work, update in-progress items
 4. **PUSH TO REMOTE** - This is MANDATORY:
@@ -68,7 +72,3 @@
 - NEVER stop before pushing - that leaves work stranded locally
 - NEVER say "ready to push when you are" - YOU must push
 - If push fails, resolve and retry until it succeeds
-
-## Task tracking
-
-Use `bd` for task tracking
