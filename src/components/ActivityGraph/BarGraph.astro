@@ -29,7 +29,7 @@ const chartData = {
   import Chart from "chart.js/auto";
 
   function getBarColor() {
-    const isDark = document.documentElement.classList.contains("dark");
+    const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     return isDark ? "#b0b4ba" : "#60646c";
   }
 
