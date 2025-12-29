@@ -150,7 +150,9 @@ const chartData = {
       });
 
       // Scroll to the end (most recent data)
-      const scrollContainer = canvas.closest(".overflow-x-auto") as HTMLDivElement;
+      const scrollContainer = canvas.closest(
+        ".overflow-x-auto",
+      ) as HTMLDivElement;
       if (scrollContainer) {
         scrollContainer.scrollLeft = scrollContainer.scrollWidth;
       }
