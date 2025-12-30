@@ -38,10 +38,4 @@ import Header from "../components/Header.astro";
 
   const handleChange = (event) => updateTheme(event.matches ? "dark" : "light");
   mediaQuery.addEventListener("change", handleChange);
-
-  document.addEventListener(
-    "astro:before-swap",
-    () => mediaQuery.removeEventListener("change", handleChange),
-    { once: true },
-  );
 </script>

@@ -37,6 +37,7 @@ const chartData = {
     if (unit === "m") {
       return Math.round(value * 1000).toString();
     }
+
     return value % 1 === 0 ? value.toString() : value.toFixed(1);
   }
 
@@ -157,7 +158,6 @@ const chartData = {
         scrollContainer.scrollLeft = scrollContainer.scrollWidth;
       }
 
-      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
       const handleThemeChange = () => {
         const newColor = getBarColor();
         chart.data.datasets.forEach((dataset) => {
@@ -166,13 +166,8 @@ const chartData = {
         chart.update();
       };
 
+      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
       mediaQuery.addEventListener("change", handleThemeChange);
-
-      document.addEventListener(
-        "astro:before-swap",
-        () => mediaQuery.removeEventListener("change", handleThemeChange),
-        { once: true },
-      );
     }
   }
 </script>
