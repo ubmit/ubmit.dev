@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -24,6 +25,8 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Create empty commit and PR
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           BRANCH="scheduled-rebuild-$(date +%s)"
           git checkout -b "$BRANCH"
