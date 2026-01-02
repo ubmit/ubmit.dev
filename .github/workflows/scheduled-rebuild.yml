@@ -23,7 +23,11 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Create empty commit
+      - name: Create empty commit and PR
         run: |
+          BRANCH="scheduled-rebuild-$(date +%s)"
+          git checkout -b "$BRANCH"
           git commit --allow-empty -m "chore: trigger scheduled rebuild for Strava data"
-          git push
+          git push origin "$BRANCH"
+          gh pr create --title "chore: trigger scheduled rebuild" --body "Automated rebuild trigger for Strava data" --base main --head "$BRANCH"
+          gh pr merge "$BRANCH" --squash --auto
