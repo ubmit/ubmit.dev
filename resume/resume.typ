@@ -39,21 +39,6 @@ Senior Frontend Engineer with 7+ years in React.js and JavaScript/TypeScript. Ex
 #grid(
   columns: (1fr, auto),
   align: (left, right),
-  text(weight: "medium")[Frontend Engineer, ISS],
-  [May 2024 - July 2024]
-)
-#v(-8pt)
-#align(right)[Porto, Portugal (Hybrid)]
-- Led an internal project to deliver an application that enables ISS collaborators to book meeting rooms and check their availability via tablets placed outside the rooms.
-- Collaborated cross-functionally with engineers, project manager, designer, and the office manager to ensure alignment and success of the pilot experiment in Porto's office.
-- Mentored a junior engineer with a backend engineering background, guiding them to build reusable UI components for the project.
-- Tech stack: React, TypeScript, Vite, React Router, Vitest, React Testing Library, Tailwind CSS, and Radix UI.
-
-#v(4pt)
-
-#grid(
-  columns: (1fr, auto),
-  align: (left, right),
   text(weight: "medium")[Frontend Engineer, Viz.ai],
   [February 2022 - April 2024]
 )
