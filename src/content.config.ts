@@ -14,7 +14,11 @@ const blog = defineCollection({
 });
 
 const talks = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/talks" }),
+  loader: glob({
+    pattern: "**/*.{md,mdx}",
+    base: "./src/content/talks",
+    generateId: ({ entry }) => entry,
+  }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
