@@ -1,6 +1,7 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import tailwindcss from "@tailwindcss/vite";
+import rehypeMermaid from "rehype-mermaid";
 
 import sitemap from "@astrojs/sitemap";
 
@@ -14,6 +15,7 @@ export default defineConfig({
         dark: "catppuccin-mocha",
       },
     },
+    rehypePlugins: [[rehypeMermaid, { strategy: "inline-svg" }]],
   },
   vite: {
     plugins: [tailwindcss()],
