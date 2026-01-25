@@ -34,18 +34,13 @@ json-render is a library that implements this pattern: AI → JSONL → UI. Inst
 
 Here's the architecture:
 
-```
-User prompt
-  ↓
-Claude API (with system prompt teaching JSONL format)
-  ↓
-JSONL patches streamed ({"op":"set","path":"/root","value":"card-key"})
-  ↓
-useUIStream hook parses patches
-  ↓
-Renderer applies patches to tree
-  ↓
-Component registry maps types → React components
+```mermaid
+graph TD
+    A[User prompt] --> B[Claude API with system prompt teaching JSONL format]
+    B --> C[JSONL patches streamed]
+    C --> D[useUIStream hook parses patches]
+    D --> E[Renderer applies patches to tree]
+    E --> F[Component registry maps types → React components]
 ```
 
 The key constraint is the **component catalog**. You define available components upfront with Zod schemas:
@@ -324,17 +319,14 @@ Figma MCP (Model Context Protocol) lets Claude read Figma files programmatically
 
 Here's the workflow:
 
-```
-Figma Design System
-  ↓
-get_design_context (extract component structure)
-get_variable_defs (extract design tokens)
-  ↓
-Component Code + Design Tokens
-  ↓
-React components with Base UI + Tailwind
-  ↓
-Storybook stories (one per variant)
+```mermaid
+graph TD
+    A[Figma Design System] --> B[get_design_context extract component structure]
+    A --> C[get_variable_defs extract design tokens]
+    B --> D[Component Code + Design Tokens]
+    C --> D
+    D --> E[React components with Base UI + Tailwind]
+    E --> F[Storybook stories one per variant]
 ```
 
 **Step 1: Extract design tokens**

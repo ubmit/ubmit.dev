@@ -1,0 +1,17 @@
+---
+// Component to initialize mermaid diagrams
+---
+
+<script>
+  import mermaid from "mermaid";
+
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: "dark",
+  });
+
+  // Re-run mermaid on client-side navigation (if using view transitions)
+  document.addEventListener("astro:page-load", () => {
+    mermaid.run();
+  });
+</script>

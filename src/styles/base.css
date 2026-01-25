@@ -64,6 +64,18 @@
     font-size: var(--text-sm);
     font-weight: var(--font-weight-light);
   }
+
+  .prose .mermaid {
+    margin: var(--spacing-6) 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .prose pre.mermaid {
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
 }
 
 @utility scrollbar-hide {

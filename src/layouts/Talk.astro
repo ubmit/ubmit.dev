@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import MermaidInit from "../components/MermaidInit.astro";
 
 type Props = CollectionEntry<"talks">["data"];
 
@@ -61,5 +62,6 @@ const { title, description, pubDate, updatedDate, event, slides, recording } =
       </div>
       <slot />
     </article>
+    <MermaidInit />
   </BaseLayout>
 </html>
