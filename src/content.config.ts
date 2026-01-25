@@ -17,7 +17,7 @@ const talks = defineCollection({
   loader: glob({
     pattern: "**/*.{md,mdx}",
     base: "./src/content/talks",
-    generateId: ({ entry }) => entry,
+    generateId: ({ entry }) => entry.replace(/\.(md|mdx)$/, ""),
   }),
   schema: z.object({
     title: z.string(),
