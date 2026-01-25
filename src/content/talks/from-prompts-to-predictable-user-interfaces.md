@@ -82,6 +82,7 @@ export const catalog = createCatalog({
 ```
 
 This catalog serves two purposes:
+
 1. Generates the system prompt teaching Claude the JSONL format
 2. Validates runtime props via `@json-render/core`
 
@@ -126,6 +127,7 @@ Generate JSONL patches now:`;
 ```
 
 Notice the constraints:
+
 - Only 3 components (Card, Button, Text)
 - Flat key-based structure (no nesting)
 - Only Card supports children
@@ -164,6 +166,7 @@ export const registry: ComponentRegistry = {
 **Why this matters**: The LLM can't deviate. It knows exactly 3 components. It knows exactly what props they accept. It knows the exact format for patches. Limited choices → predictable outputs.
 
 **When to use json-render**:
+
 - ✅ You have a predefined component library
 - ✅ You need streaming UI generation
 - ✅ Visual complexity is limited (simple cards, forms, lists)
@@ -181,6 +184,7 @@ The catalog becomes your design contract. Change it, regenerate the system promp
 They understand CSS concepts ("flexbox centers items," "z-index controls stacking"). They know layout principles ("hero section at top," "footer at bottom"). But they can't predict actual browser rendering. Edge cases, browser quirks, visual bugs—invisible to the model.
 
 You may have experienced this:
+
 - Prompt: "Center the login form"
 - Code looks correct
 - Renders off-center due to parent container constraints
@@ -254,6 +258,7 @@ Overall: Form displays correctly with good UX
 ```
 
 This output:
+
 - Validates all key elements
 - Identifies improvement opportunity
 - Uses ~500 bytes vs ~50KB for screenshots
@@ -263,24 +268,25 @@ Compare to **Playwright MCP**:
 
 ```typescript
 // Would require:
-mcp__playwright__browser_navigate({ url: "http://localhost:3001" })
-mcp__playwright__browser_snapshot({ filename: "login-form.md" })
-mcp__playwright__browser_take_screenshot({ filename: "login-form.png" })
+mcp__playwright__browser_navigate({ url: "http://localhost:3001" });
+mcp__playwright__browser_snapshot({ filename: "login-form.md" });
+mcp__playwright__browser_take_screenshot({ filename: "login-form.png" });
 ```
 
 Returns full page snapshot (markdown + accessibility tree) plus base64 PNG screenshot. ~50KB+ added to context window per screenshot.
 
 **Context budget comparison:**
 
-| Aspect | agent-browser | Playwright MCP |
-|--------|---------------|----------------|
-| Output format | Natural language | Markdown + base64 images |
-| Context impact | Low (~1KB) | High (~50KB+) |
-| Use case | Quick visual checks | Deep inspection |
-| Iteration speed | Fast (text-based) | Slower (image-heavy) |
-| Precision | Semantic validation | Pixel-perfect validation |
+| Aspect          | agent-browser       | Playwright MCP           |
+| --------------- | ------------------- | ------------------------ |
+| Output format   | Natural language    | Markdown + base64 images |
+| Context impact  | Low (~1KB)          | High (~50KB+)            |
+| Use case        | Quick visual checks | Deep inspection          |
+| Iteration speed | Fast (text-based)   | Slower (image-heavy)     |
+| Precision       | Semantic validation | Pixel-perfect validation |
 
 **When to use agent-browser**:
+
 - ✅ Validating layout/positioning
 - ✅ Checking element visibility
 - ✅ Testing interaction states (hover, focus)
@@ -288,6 +294,7 @@ Returns full page snapshot (markdown + accessibility tree) plus base64 PNG scree
 - ✅ Context window preservation matters (agentic workflows)
 
 **When to use Playwright MCP**:
+
 - ✅ Pixel-perfect comparison needed
 - ✅ Screenshot documentation required
 - ✅ Complex multi-step flows
@@ -333,7 +340,7 @@ graph TD
 
 ```typescript
 // Use Figma MCP
-mcp__figma__get_variable_defs(fileKey, nodeId)
+mcp__figma__get_variable_defs(fileKey, nodeId);
 
 // Generates tokens.ts:
 export const tokens = {
@@ -383,7 +390,7 @@ These become your single source of truth. Change Figma variable, re-extract, upd
 
 ```typescript
 // Extract Button component
-mcp__figma__get_design_context(fileKey, buttonNodeId)
+mcp__figma__get_design_context(fileKey, buttonNodeId);
 
 // Returns React component code with Tailwind
 ```
@@ -491,6 +498,7 @@ export const PrimaryDisabledMedium: Story = {
 Storybook becomes living documentation that matches Figma exactly. Designers and developers reference the same truth.
 
 **Key benefits**:
+
 - Design tokens as single source of truth
 - Automated variant generation (no manual mapping)
 - Living documentation via Storybook
@@ -498,6 +506,7 @@ Storybook becomes living documentation that matches Figma exactly. Designers and
 - Visual validation via `get_screenshot` (compare Figma to rendered)
 
 **When to use Figma MCP**:
+
 - ✅ Established design system exists in Figma
 - ✅ Building component library
 - ✅ Design-dev collaboration critical
@@ -514,24 +523,28 @@ The constraint here is the design system itself. Figma becomes the contract. Cod
 These three techniques aren't mutually exclusive—they complement each other:
 
 **json-render**: When you know component structure upfront
+
 - Predefined UI patterns (dashboards, forms, cards)
 - Streaming generation from prompts
 - Limited visual complexity
 - Runtime validation needed
 
 **agent-browser**: When you need visual validation without bloating context
+
 - Layout/positioning checks
 - Quick iteration cycles
 - Agentic workflows (context budget critical)
 - Semantic validation sufficient
 
 **Figma MCP**: When design is the source of truth
+
 - Design system extraction
 - Component library generation
 - Design-dev handoff automation
 - Living documentation
 
 **Context budget matters**: For agentic workflows where Claude autonomously iterates, choose tools that preserve context:
+
 - agent-browser (~1KB) over Playwright screenshots (~50KB)
 - json-render patches (~2KB) over full component code (~20KB)
 - Figma token extraction (~5KB) over full design files (~100KB+)

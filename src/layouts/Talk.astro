@@ -21,11 +21,7 @@ const { title, description, pubDate, updatedDate, event, slides, recording } =
       <h1 class="mb-0">{title}</h1>
       <div class="space-y-1">
         <FormattedDate date={pubDate} />
-        {
-          event && (
-            <div class="text-gray-1100 text-sm">Event: {event}</div>
-          )
-        }
+        {event && <div class="text-gray-1100 text-sm">Event: {event}</div>}
         {
           (slides || recording) && (
             <div class="flex gap-4 text-sm">
