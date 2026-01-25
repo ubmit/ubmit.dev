@@ -55,7 +55,6 @@
 
   .prose code {
     color: var(--color-gray-1200);
-    font-weight: var(--font-weight-bold);
   }
 
   .prose time {

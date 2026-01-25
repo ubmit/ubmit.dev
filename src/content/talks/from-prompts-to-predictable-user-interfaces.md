@@ -167,13 +167,13 @@ export const registry: ComponentRegistry = {
 
 **When to use json-render**:
 
-- ✅ You have a predefined component library
-- ✅ You need streaming UI generation
-- ✅ Visual complexity is limited (simple cards, forms, lists)
-- ✅ You want runtime validation of generated output
-- ❌ You need full design freedom
-- ❌ You're generating complex layouts with deep nesting
-- ❌ Your component library changes frequently
+- + You have a predefined component library
+- + You need streaming UI generation
+- + Visual complexity is limited (simple cards, forms, lists)
+- + You want runtime validation of generated output
+- - You need full design freedom
+- - You're generating complex layouts with deep nesting
+- - Your component library changes frequently
 
 The catalog becomes your design contract. Change it, regenerate the system prompt, done. Predictability through constraints.
 
@@ -245,14 +245,14 @@ and properly aligned.
 agent-browser returns natural language:
 
 ```
-✓ Page loaded successfully
-✓ Login form card visible at center
-✓ Email input: visible, properly labeled, placeholder present
-✓ Password input: visible, properly labeled, placeholder present
-✓ Submit button: visible, blue background, prominent
-✓ Visual hierarchy: excellent (title → inputs → button → footer)
-✓ Accessibility: labels properly associated with inputs
-⚠ Minor: "Forgot password" link small, could be more prominent
+* Page loaded successfully
+* Login form card visible at center
+* Email input: visible, properly labeled, placeholder present
+* Password input: visible, properly labeled, placeholder present
+* Submit button: visible, blue background, prominent
+* Visual hierarchy: excellent (title → inputs → button → footer)
+* Accessibility: labels properly associated with inputs
+! Minor: "Forgot password" link small, could be more prominent
 
 Overall: Form displays correctly with good UX
 ```
@@ -287,19 +287,19 @@ Returns full page snapshot (markdown + accessibility tree) plus base64 PNG scree
 
 **When to use agent-browser**:
 
-- ✅ Validating layout/positioning
-- ✅ Checking element visibility
-- ✅ Testing interaction states (hover, focus)
-- ✅ Iterating rapidly on visual design
-- ✅ Context window preservation matters (agentic workflows)
+- + Validating layout/positioning
+- + Checking element visibility
+- + Testing interaction states (hover, focus)
+- + Iterating rapidly on visual design
+- + Context window preservation matters (agentic workflows)
 
 **When to use Playwright MCP**:
 
-- ✅ Pixel-perfect comparison needed
-- ✅ Screenshot documentation required
-- ✅ Complex multi-step flows
-- ✅ Full browser automation needed
-- ✅ Visual regression testing
+- + Pixel-perfect comparison needed
+- + Screenshot documentation required
+- + Complex multi-step flows
+- + Full browser automation needed
+- + Visual regression testing
 
 The feedback loop workflow:
 
@@ -507,14 +507,14 @@ Storybook becomes living documentation that matches Figma exactly. Designers and
 
 **When to use Figma MCP**:
 
-- ✅ Established design system exists in Figma
-- ✅ Building component library
-- ✅ Design-dev collaboration critical
-- ✅ Need living documentation (Storybook)
-- ✅ Want design as code workflow
-- ❌ No design system (yet)
-- ❌ Designs change too frequently (extraction overhead)
-- ❌ Rate limits matter (Figma MCP has usage caps)
+- + Established design system exists in Figma
+- + Building component library
+- + Design-dev collaboration critical
+- + Need living documentation (Storybook)
+- + Want design as code workflow
+- - No design system (yet)
+- - Designs change too frequently (extraction overhead)
+- - Rate limits matter (Figma MCP has usage caps)
 
 The constraint here is the design system itself. Figma becomes the contract. Code generation follows Figma truth. Predictability through design authority.
 
