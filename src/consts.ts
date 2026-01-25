@@ -11,3 +11,8 @@ export const postsSortedByPubDate = (await getCollection("blog")).sort(
   (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
     b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+export const talksSortedByPubDate = (await getCollection("talks")).sort(
+  (a: CollectionEntry<"talks">, b: CollectionEntry<"talks">) =>
+    b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);

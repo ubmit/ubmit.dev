@@ -1,0 +1,34 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import "../styles/base.css";
+import { SITE_DESCRIPTION, talksSortedByPubDate } from "../consts";
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title="Talks" description={SITE_DESCRIPTION} />
+  </head>
+  <BaseLayout>
+    <ul class="space-y-4">
+      {
+        talksSortedByPubDate.map((talk) => (
+          <li>
+            <a
+              href={`/talks/${talk.id}/`}
+              class="group text-gray-1100 flex items-center justify-between"
+            >
+              <span class="group-hover:text-gray-1200 transition-colors">
+                {talk.data.title}
+              </span>
+              <span class="text-sm">
+                <FormattedDate date={talk.data.pubDate} />
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </BaseLayout>
+</html>

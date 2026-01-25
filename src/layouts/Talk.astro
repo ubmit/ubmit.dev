@@ -1,0 +1,65 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+type Props = CollectionEntry<"talks">["data"];
+
+const { title, description, pubDate, updatedDate, event, slides, recording } =
+  Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+
+  <BaseLayout>
+    <article class="prose dark:prose-invert">
+      <h1 class="mb-0">{title}</h1>
+      <div class="space-y-1">
+        <FormattedDate date={pubDate} />
+        {
+          event && (
+            <div class="text-gray-1100 text-sm">Event: {event}</div>
+          )
+        }
+        {
+          (slides || recording) && (
+            <div class="flex gap-4 text-sm">
+              {slides && (
+                <a
+                  href={slides}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-gray-1100 hover:text-gray-1200 transition-colors"
+                >
+                  Slides →
+                </a>
+              )}
+              {recording && (
+                <a
+                  href={recording}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-gray-1100 hover:text-gray-1200 transition-colors"
+                >
+                  Recording →
+                </a>
+              )}
+            </div>
+          )
+        }
+        {
+          updatedDate && (
+            <div class="italic">
+              Last updated on <FormattedDate date={updatedDate} />
+            </div>
+          )
+        }
+      </div>
+      <slot />
+    </article>
+  </BaseLayout>
+</html>
