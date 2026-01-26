@@ -40,10 +40,6 @@
   2. Run `pnpm run test:update`
   3. Commit the updated snapshots in `tests/visual.spec.ts-snapshots/`
 
-## Task tracking
-
-Use `bd` for task tracking
-
 ## Landing the Plane (Session Completion)
 
 **When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
