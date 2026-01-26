@@ -27,31 +27,17 @@ Any static assets, like images, can be placed in the `public/` directory.
 
 All commands are run from the root of the project, from a terminal:
 
-| Command                    | Action                                           |
-| :------------------------- | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm run dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm run build`           | Build your production site to `./dist/`          |
-| `pnpm run format`          | Format code with Prettier                        |
-| `pnpm run format:check`    | Check code formatting without modifying files    |
-| `pnpm run test`            | Run visual regression tests with Playwright      |
-| `pnpm run test:ui`         | Run tests in interactive UI mode                 |
-| `pnpm run test:update`     | Update visual regression snapshots               |
-| `pnpm run astro check`     | Type-check Astro files                           |
-
-### Task Tracking
-
-This project uses **Beads** (`bd`) for AI-native issue tracking:
-
-```bash
-bd ready              # Find available work
-bd show <id>          # View issue details
-bd update <id> --status in_progress  # Claim work
-bd close <id>         # Complete work
-bd sync               # Sync with git
-```
-
-See [Beads docs](https://github.com/steveyegge/beads) for more information.
+| Command                 | Action                                        |
+| :---------------------- | :-------------------------------------------- |
+| `pnpm install`          | Installs dependencies                         |
+| `pnpm run dev`          | Starts local dev server at `localhost:4321`   |
+| `pnpm run build`        | Build your production site to `./dist/`       |
+| `pnpm run format`       | Format code with Prettier                     |
+| `pnpm run format:check` | Check code formatting without modifying files |
+| `pnpm run test`         | Run visual regression tests with Playwright   |
+| `pnpm run test:ui`      | Run tests in interactive UI mode              |
+| `pnpm run test:update`  | Update visual regression snapshots            |
+| `pnpm run astro check`  | Type-check Astro files                        |
 
 ## 🧪 Visual Regression Testing
 
