@@ -14,7 +14,7 @@
 #align(center)[
   #text(size: 18pt, weight: "semibold")[Guilherme de Andrade]
   #v(-6pt)
-  +351 936 747 095 | #link("mailto:gui@ubmit.dev")[gui\@ubmit.dev] | #link("https://github.com/ubmit")[github.com/ubmit] | #link("https://linkedin.com/in/ubmit")[linkedin.com/in/ubmit] | Porto, Portugal
+  #link("mailto:gui@ubmit.dev")[gui\@ubmit.dev] | #link("https://linkedin.com/in/ubmit")[linkedin.com/in/ubmit] | #link("https://github.com/ubmit")[github.com/ubmit] | | +351 936 747 095 | Porto, Portugal
 ]
 
 #section[Profile]
