@@ -4,37 +4,37 @@ description: "Three techniques for building reliable AI-generated UIs: structure
 pubDate: "January 25 2026"
 ---
 
-You give Claude the same prompt twice. You get two completely different UIs.
+You give a coding agent the same prompt twice. You get two completely different UIs.
 
-That's not a bug—it's just how LLMs work. Non-determinism is baked into the core of these models. Same input, different output. Every single time. When you're generating code, this creates a massive predictability problem: you simply don't know what you're going to get. One run gives you clean, modular components. The next? A spaghetti mess with a totally different framework approach.
+That's not a bug, it's just how LLMs work. Non-determinism is baked into these models. Same input, different output. Every time. When you're generating code, this creates a predictability problem: you don't know what you're going to get. One run gives you clean, modular components. The next? A spaghetti mess with a totally different framework approach.
 
-If you’ve built anything with LLMs, you’ve felt this. You craft the "perfect" prompt, it works beautifully during your demo, and then you run it for a customer only for it to produce something completely unexpected. It’s not necessarily "wrong," it’s just _different_. And in software, "different" is usually the enemy of reliable.
+If you've built anything with LLMs, you've felt this. You craft the "perfect" prompt, it works during your demo, then you run it for a customer and it produces something completely different. Not necessarily wrong, just _different_. And in software, different usually means unreliable.
 
-The fix isn’t writing "better" prompts. It’s adding constraints.
+The fix isn't writing "better" prompts. It's adding constraints.
 
-## Constraints Are a Feature, Not a Bug
+## Constraints are features
 
-When you limit choices, you get predictable results. This is the secret sauce for design systems, code architecture, and—most importantly—AI-generated UIs. Instead of letting the LLM wander through infinite possibilities, we give it a small, high-quality map to follow.
+When you limit choices, you get predictable results. This works for design systems, code architecture, and AI-generated UIs. Instead of letting the LLM wander through infinite possibilities, give it a small, well-defined map to follow.
 
-I recently spoke at FE.OPO #9 about three ways to tame this unpredictability:
+I spoke at [FE.OPO #9](https://www.youtube.com/live/omoDqK2kWKU?si=zsB14TzXFnZyJfKe&t=429) about three ways to tame this unpredictability:
 
-1.  **Figma MCP (Design System Contracts)**: Turning Figma into a machine-readable source of truth.
-2.  **agent-browser (Visual Feedback Loops)**: A "Generate → Validate → Iterate" cycle that actually sees what it built.
-3.  **json-render (Structured Output)**: Swapping free-form code for a strict component catalog.
+1. **Figma MCP (Design System Contracts)**: Turning Figma into a machine-readable source of truth.
+2. **agent-browser (Visual Feedback Loops)**: A "Generate → Validate → Iterate" cycle that actually sees what it built.
+3. **json-render (Structured Output)**: Swapping free-form code for a strict component catalog.
 
-Let’s break down how they work.
+Let's break down how they work.
 
-## 1. Figma MCP: Design as the Ultimate Contract
+## 1. Figma MCP: Design as contract
 
 **The frustration**: The "telephone game" of design handoff.
 
-A designer builds a beautiful mockup, a developer interprets those visuals, and somewhere along the way, the implementation starts to drift. Colors are a hex code off. Spacing feels "weird." Typography doesn't quite match. This gap—the distance between intent and implementation—is where UI quality goes to die.
+A designer builds a mockup, a developer interprets the visuals, and somewhere the implementation drifts. Colors are a hex code off. Spacing feels wrong. Typography doesn't quite match. This gap between intent and implementation is where UI quality dies.
 
 **The fix**: Stop interpreting. Start extracting.
 
-Figma MCP (Model Context Protocol) lets Claude read Figma files programmatically. Extract components, design tokens, variants—everything. Generate code that matches design exactly. No interpretation gap.
+Figma MCP (Model Context Protocol) lets an agent read Figma files programmatically. Extract components, design tokens, variants. Generate code that matches design exactly. No interpretation gap.
 
-Here's the workflow:
+The workflow:
 
 ```mermaid
 graph TD
@@ -205,47 +205,40 @@ export const PrimaryDisabledMedium: Story = {
 // ...15 more variants
 ```
 
-Storybook becomes living documentation that matches Figma exactly. Designers and developers reference the same truth.
+Storybook becomes documentation that matches Figma exactly. Designers and developers reference the same source.
 
-**Why this is a game-changer**:
+**Why this works**:
 
-- **One source of truth**: Design tokens aren't scattered across Slack messages and CSS files—they live in Figma and sync to code.
-- **No more manual mapping**: Stop hand-coding 18 different button variants. Let the machine do the grunt work.
-- **Sync by default**: When a designer changes a "Primary Blue," the code updates automatically. No "oops, I forgot to update the hex code" moments.
-- **Visual proof**: You can actually compare a screenshot of the code against the original Figma node to ensure they’re identical.
+- Design tokens aren't scattered across Slack messages and CSS files. They live in Figma and sync to code.
+- Stop hand-coding 18 button variants. Let the machine do the grunt work.
+- When a designer changes "Primary Blue," the code updates automatically.
+- You can compare a screenshot of the code against the original Figma node to verify they match.
 
-**When to reach for it**:
+**When to use it**: You have a solid design system in Figma. You're building a component library. The gap between design and dev is causing friction.
 
-- You already have a solid design system in Figma.
-- You’re building a component library from scratch.
-- The "gap" between design and dev is causing real friction.
+**When to skip it**: You don't have a design system yet. Your designs are changing so fast that extraction becomes a bottleneck.
 
-**When to skip it**:
+The power is in the constraint. Figma becomes the boss. You're not guessing, you're following a contract.
 
-- You don't have a design system yet (don't over-engineer a mess).
-- Your designs are changing so fast that the extraction becomes a bottleneck.
+## 2. Visual feedback loops: Giving the AI eyes
 
-The real power here is the constraint. By making Figma the "boss," you aren't just guessing—you're following a contract. Predictability doesn't come from luck; it comes from authority.
+**The blind spot**: LLMs reason about code well, but they're blind to how that code actually _looks_.
 
-## 2. Visual Feedback Loops: Giving the AI Eyes
+An LLM knows `justify-center` should center an item. It understands a footer belongs at the bottom. But it has no idea about browser quirks, z-index collisions, or parent container constraints. It's writing code into a void.
 
-**The blind spot**: LLMs are great at reasoning about code, but they’re completely blind to how that code actually _looks_.
-
-An LLM knows that `justify-center` should center an item. It understands that a footer belongs at the bottom. But it has no idea about browser quirks, z-index collisions, or parent container constraints. It’s writing code into a void.
-
-We’ve all seen it:
+We've all seen it:
 
 - **Prompt**: "Center the login form."
 - **Code**: Looks perfect on paper.
-- **Reality**: It’s shoved into the top-left corner because of a CSS reset it didn't see coming.
+- **Reality**: Shoved into the top-left corner because of a CSS reset it didn't see coming.
 
 **The fix**: A "Generate → Validate → Iterate" loop.
 
-Build a feedback loop where the LLM generates code, you (or a tool) validate the rendered output, then feed results back for iteration. The constraint here is forcing validation before considering work "done."
+Build a feedback loop: the LLM generates code, you (or a tool) validate the rendered output, then feed results back for iteration. The constraint is forcing validation before considering work done.
 
 Two tools enable this: **agent-browser** (natural language) and **Playwright MCP** (screenshots). Different tradeoffs.
 
-Here's a login form I built for the demo:
+A login form I built for the demo:
 
 ```typescript
 // examples/feedback-loop-demo/app/page.tsx
@@ -306,12 +299,7 @@ agent-browser returns natural language:
 Overall: Form displays correctly with good UX
 ```
 
-This output:
-
-- Validates all key elements
-- Identifies improvement opportunity
-- Uses ~500 bytes vs ~50KB for screenshots
-- Enables 100+ iterations within typical context window
+This output validates all key elements, identifies an improvement opportunity, and uses ~500 bytes vs ~50KB for screenshots. That means 100+ iterations within a typical context window.
 
 Compare to **Playwright MCP**:
 
@@ -324,7 +312,7 @@ mcp__playwright__browser_take_screenshot({ filename: "login-form.png" });
 
 Returns full page snapshot (markdown + accessibility tree) plus base64 PNG screenshot. ~50KB+ added to context window per screenshot.
 
-**Context budget comparison:**
+Context budget comparison:
 
 | Aspect          | agent-browser       | Playwright MCP           |
 | --------------- | ------------------- | ------------------------ |
@@ -334,37 +322,29 @@ Returns full page snapshot (markdown + accessibility tree) plus base64 PNG scree
 | Iteration speed | Fast (text-based)   | Slower (image-heavy)     |
 | Precision       | Semantic validation | Pixel-perfect validation |
 
-**When to use agent-browser**:
+**When to use agent-browser**: Validating layout, positioning, or basic visibility. Iterating fast. Watching your context window budget.
 
-- You need to validate layout, positioning, or basic visibility.
-- You’re iterating fast and don't want to wait for heavy images to upload.
-- You’re worried about blowing your context window budget.
+**When to use Playwright MCP**: Pixel-perfect comparisons. Complex multi-step user flows. Screenshots for documentation or regression testing.
 
-**When to use Playwright MCP**:
+The workflow: Generate → Render → Validate → Fix. Forcing the AI to "look" at its work before moving on kills 90% of visual bugs that haunt AI-generated UIs.
 
-- You need pixel-perfect comparisons.
-- You’re testing a complex, multi-step user flow.
-- You need actual screenshots for documentation or regression testing.
+For agentic workflows where an agent iterates autonomously, agent-browser preserves context budget for code changes instead of bloating it with images.
 
-The workflow is simple: Generate → Render → Validate → Fix. By forcing the AI to "look" at its work before it moves on, you kill off 90% of the visual bugs that usually haunt AI-generated UIs.
-
-For agentic workflows where Claude is autonomously iterating on designs, agent-browser preserves context budget for actual code changes instead of bloating it with images.
-
-## 3. json-render: UI as Data, Not Just Code
+## 3. json-render: UI as data
 
 **The chaos**: Free-form code generation is a wild west.
 
-Ask an LLM to "build a login form" and it might give you React today, Vue tomorrow, and a custom CSS-in-JS solution the day after. Even within the same framework, the naming conventions and component structures will shift every time you hit "Regenerate."
+Even within the same framework, naming conventions and component structures shift every time you hit "Regenerate."
 
-**The fix**: Stop asking for code. Start asking for data.
+**The fix**: Stop asking for code. Ask for data.
 
-json-render is a library that implements this pattern: AI → JSONL → UI. Instead of asking the LLM to output React/Vue/whatever directly, you teach it to output JSON Lines patches describing the UI structure. A separate renderer applies those patches and maps them to your component library.
+json-render implements this pattern: AI → JSONL → UI. Instead of asking the LLM to output React/Vue/whatever directly, you teach it to output JSON Lines patches describing the UI structure. A separate renderer applies those patches and maps them to your component library.
 
-Here's the architecture:
+The architecture:
 
 ```mermaid
 graph TD
-    A[User prompt] --> B[Claude API with system prompt teaching JSONL format]
+    A[User prompt] --> B[A LLM API with system prompt teaching JSONL format]
     B --> C[JSONL patches streamed]
     C --> D[useUIStream hook parses patches]
     D --> E[Renderer applies patches to tree]
@@ -411,7 +391,7 @@ export const catalog = createCatalog({
 
 This catalog serves two purposes:
 
-1. Generates the system prompt teaching Claude the JSONL format
+1. Generates the system prompt teaching the LLM the JSONL format
 2. Validates runtime props via `@json-render/core`
 
 The system prompt becomes your contract:
@@ -462,7 +442,7 @@ Notice the constraints:
 - Children are string keys, not objects
 - Specific operations (set, add)
 
-When you prompt "Create a welcome card with a button," Claude generates:
+When you prompt "Create a welcome card with a button," the model generates:
 
 ```jsonl
 {"op":"set","path":"/root","value":"welcome-card"}
@@ -491,49 +471,41 @@ export const registry: ComponentRegistry = {
 };
 ```
 
-**Why this is a win**: The LLM literally _cannot_ deviate. It knows it has exactly three components. It knows exactly what props they take. It has a strict recipe to follow. Limited choices lead to predictable results, every single time.
+**Why this works**: The LLM _cannot_ deviate. It knows it has exactly three components. It knows what props they take. It has a strict recipe to follow. Limited choices, predictable results.
 
-**When to use json-render**:
+**When to use json-render**: You have a set component library and want the AI to assemble UIs. You want progressive streaming. You need to validate output at runtime before it hits the user.
 
-- You have a set component library and want the AI to just "assemble" UIs.
-- You want that cool, progressive "streaming" UI effect.
-- You need to validate the AI's output at runtime before it hits the user.
+**When to skip it**: You need total design freedom (custom landing pages). Your layout has deep nesting that's hard to represent flat. Your component library is constantly changing.
 
-**When to skip it**:
+The catalog is your design contract. Change it, regenerate the system prompt, done.
 
-- You need total design freedom (e.g., custom landing pages).
-- Your layout has deep, complex nesting that's hard to represent in a flat list.
-- Your component library is constantly in flux.
+## Which one should you use?
 
-The catalog becomes your design contract. Change it, regenerate the system prompt, done. Predictability through constraints.
+These aren't competing tools. They're different layers of the same stack.
 
-## Which One Should You Use?
+- **Figma MCP**: Your design system is law. You need 1:1 match with Figma files.
+- **agent-browser**: Speed and cost matter. The AI gets "semantic vision" to fix its own mistakes without burning context on screenshots.
+- **json-render**: You need absolute consistency. Dashboards or internal tools where the AI assembles pre-approved building blocks.
 
-These aren't competing tools; they’re different layers of the same stack.
+**Watch your context budget.** If the agent is iterating autonomously, every byte counts.
 
-- **Figma MCP** is for when your design system is the law. If you need your generated UI to be a 1:1 match with your Figma files, this is your tool.
-- **agent-browser** is for when speed and cost matter. It gives the AI "semantic vision" so it can fix its own mistakes without burning through your context window with massive screenshots.
-- **json-render** is for when you need absolute consistency. It’s perfect for dashboards or internal tools where you want the AI to assemble pre-approved building blocks rather than inventing new ones.
+- agent-browser (~1KB) beats Playwright screenshots (~50KB)
+- json-render patches (~2KB) beat full code generation (~20KB)
 
-**Pro-tip: Watch your context budget.** If you’re building agentic workflows where Claude is iterating autonomously, every byte counts.
+The more expensive your feedback, the fewer chances the AI gets to iterate.
 
-- **agent-browser** (~1KB) wins over **Playwright screenshots** (~50KB).
-- **json-render patches** (~2KB) win over **full code generation** (~20KB).
+## The bottom line
 
-The more "expensive" your feedback is, the fewer chances the AI has to get it right.
+Same prompt, different outputs. That's how LLMs work. Constraints change the game.
 
-## The Bottom Line
-
-Same prompt, different outputs—that's the nature of LLMs. But constraints change the game.
-
-By using **design contracts** (Figma MCP), **feedback loops** (agent-browser), and **structured output** (json-render), you can turn a chaotic generator into a predictable engine.
+Design contracts (Figma MCP), feedback loops (agent-browser), and structured output (json-render) turn a chaotic generator into something predictable.
 
 These aren't silver bullets. Figma MCP has rate limits. agent-browser won't catch every pixel-perfect glitch. json-render isn't built for infinite design freedom.
 
-But they all share one big truth: **guardrails are your best friend**. When you constrain the problem space and make choices finite, you don't just get better code—you get code you can actually trust.
+But guardrails work. When you constrain the problem space and make choices finite, you get code you can trust.
 
 Predictability through constraints. Not despite them.
 
 ---
 
-All code from this post available at [ubmit/from-prompts-to-predictable-user-interfaces](https://github.com/ubmit/from-prompts-to-predictable-user-interfaces). Slides, demos, and full examples are all there.
+All code from this post is available at [ubmit/from-prompts-to-predictable-user-interfaces](https://github.com/ubmit/from-prompts-to-predictable-user-interfaces). Slides, demos, and full examples are all there.
