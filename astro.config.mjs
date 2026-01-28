@@ -27,7 +27,6 @@ export default defineConfig({
     "/linkedin": "https://www.linkedin.com/in/ubmit/",
     "/github": "https://github.com/ubmit",
     "/meet": "https://cal.com/ubmit/30min",
-    "/quick-meet": "https://cal.com/ubmit/15min",
     "/resume": "/resume.pdf",
     /**
      * Blog post redirects: Preserve SEO and prevent broken links.

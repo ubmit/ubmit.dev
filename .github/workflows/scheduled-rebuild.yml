@@ -33,4 +33,12 @@ jobs:
           git commit --allow-empty -m "chore: trigger scheduled rebuild for Strava data"
           git push origin "$BRANCH"
           gh pr create --title "chore: trigger scheduled rebuild" --body "Automated rebuild trigger for Strava data" --base main --head "$BRANCH"
-          gh pr merge "$BRANCH" --squash --auto
+
+          # Retry auto-merge to handle PR initialization delay
+          for i in {1..5}; do
+            if gh pr merge "$BRANCH" --squash --auto; then
+              break
+            fi
+            echo "Auto-merge failed, retrying in 5 seconds... (attempt $i/5)"
+            sleep 5
+          done

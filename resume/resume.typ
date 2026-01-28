@@ -1,5 +1,5 @@
-#set page(margin: (x: 0.75in, y: 0.50in))
-#set text(font: "Source Serif 4", size: 10pt, weight: "light")
+#set page(margin: (x: 0.75in, y: 0.75in))
+#set text(font: "Source Serif 4", size: 11pt, weight: "light")
 #set par(justify: true)
 
 #let section(title) = {
@@ -14,7 +14,7 @@
 #align(center)[
   #text(size: 18pt, weight: "semibold")[Guilherme de Andrade]
   #v(-6pt)
-  +351 936 747 095 | #link("mailto:gui@ubmit.dev")[gui\@ubmit.dev] | #link("https://github.com/ubmit")[github.com/ubmit] | #link("https://linkedin.com/in/ubmit")[linkedin.com/in/ubmit] | Porto, Portugal
+  #link("mailto:gui@ubmit.dev")[gui\@ubmit.dev] | #link("https://linkedin.com/in/ubmit")[linkedin.com/in/ubmit] | #link("https://github.com/ubmit")[github.com/ubmit] | | +351 936 747 095 | Porto, Portugal
 ]
 
 #section[Profile]
@@ -103,7 +103,7 @@ Senior Frontend Engineer with 7+ years in React.js and JavaScript/TypeScript. Ex
 #grid(
   columns: (1fr, auto),
   align: (left, right),
-  text(weight: "medium")[Software Engineering Intern, TrackingTrade],
+  text(weight: "medium")[Software Engineer Intern, TrackingTrade],
   [March 2018 - July 2018]
 )
 #v(-8pt)
