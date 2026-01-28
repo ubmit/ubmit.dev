@@ -1,7 +1,7 @@
 ---
 title: "From Prompts to Predictable User Interfaces"
 description: "Three techniques for building reliable AI-generated UIs: structured output formats, feedback loops, and design system contracts."
-pubDate: "January 25 2026"
+pubDate: "January 22 2026"
 ---
 
 You give a coding agent the same prompt twice. You get two completely different UIs.
@@ -42,7 +42,7 @@ graph TD
     A --> C[get_variable_defs extract design tokens]
     B --> D[Component Code + Design Tokens]
     C --> D
-    D --> E[React components with Base UI + Tailwind]
+    D --> E[React components with Base UI + Tailwind CSS]
     E --> F[Storybook stories one per variant]
 ```
 
@@ -53,6 +53,9 @@ graph TD
 mcp__figma__get_variable_defs(fileKey, nodeId);
 
 // Generates tokens.ts:
+
+// Design tokens extracted from Figma Simple Design System
+// https://www.figma.com/design/dHqyIhebbTxZSzOun8aAaA/Simple-Design-System--Community-
 export const tokens = {
   color: {
     text: {
@@ -94,6 +97,46 @@ export const tokens = {
 } as const;
 ```
 
+If you are using Tailwind CSS you could easily ask your coding agent to convert this file to Tailwind's V4 CSS configuration:
+
+```css
+/* don't worry about the variable names */
+/* they are bad, but that's just an example */
+@import "tailwindcss";
+
+@theme {
+  /* Colors - Text */
+  --color-brand-on-brand: #f5f5f5;
+  --color-default: #1e1e1e;
+  --color-subtle: #666666;
+  --color-disabled: #a3a3a3;
+
+  /* Colors - Background */
+  --color-bg-brand: #2c2c2c;
+  --color-bg-brand-hover: #1e1e1e;
+  --color-bg-neutral: #e3e3e3;
+  --color-bg-neutral-hover: #cdcdcd;
+  --color-bg-subtle-hover: #f5f5f5;
+  --color-bg-disabled: #e5e5e5;
+
+  /* Colors - Border */
+  --color-border-primary: #2c2c2c;
+  --color-border-neutral: #767676;
+  --color-border-subtle: #d9d9d9;
+  --color-border-disabled: #b3b3b3;
+
+  /* Typography */
+  --font-body: "Inter", sans-serif;
+
+  /* Border Radius */
+  --radius-md: 8px;
+
+  /* Spacing */
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+}
+```
+
 These become your single source of truth. Change Figma variable, re-extract, update tokens.ts. Design stays in sync with code.
 
 **Step 2: Extract component structure**
@@ -101,16 +144,18 @@ These become your single source of truth. Change Figma variable, re-extract, upd
 ```typescript
 // Extract Button component
 mcp__figma__get_design_context(fileKey, buttonNodeId);
-
-// Returns React component code with Tailwind
 ```
 
-For a Button component with 18 variants (3 visual styles × 3 states × 2 sizes), Figma MCP extracts all of them. You map to accessible primitives:
-
-```typescript
-// examples/design-system-demo/src/components/button.tsx
+```tsx
+// Returns React component code with Base UI + Tailwind CSS:
+import * as React from "react";
 import { Button as BaseButton } from "@base-ui/react/button";
 import { cva, type VariantProps } from "class-variance-authority";
+
+export interface ButtonProps
+  extends
+    Omit<React.ComponentPropsWithoutRef<typeof BaseButton>, "disabled">,
+    VariantProps<typeof buttonVariants> {}
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 border font-body font-normal leading-none rounded-md transition-colors",
@@ -155,7 +200,14 @@ const buttonVariants = cva(
   },
 );
 
-export function Button({ className, variant, size, children, disabled, ...props }: ButtonProps) {
+export function Button({
+  className,
+  variant,
+  size,
+  children,
+  disabled,
+  ...props
+}: ButtonProps) {
   return (
     <BaseButton
       className={buttonVariants({ variant, size, disabled, className })}
@@ -167,6 +219,8 @@ export function Button({ className, variant, size, children, disabled, ...props 
   );
 }
 ```
+
+For a Button component with 18 variants (3 visual styles × 3 states × 2 sizes), Figma MCP extracts all of them and maps to accessible primitives like Base UI.
 
 **Step 3: Generate Storybook stories**
 
@@ -240,30 +294,33 @@ Two tools enable this: **agent-browser** (natural language) and **Playwright MCP
 
 A login form I built for the demo:
 
-```typescript
+```tsx
 // examples/feedback-loop-demo/app/page.tsx
 export default function Page() {
   return (
     <main className="flex min-h-screen items-center justify-center p-8">
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
+        <div className="rounded-lg bg-white p-8 shadow-lg">
+          <h1 className="mb-2 text-2xl font-bold text-gray-900">
             Welcome back
           </h1>
-          <p className="text-gray-600 mb-6">
+          <p className="mb-6 text-gray-600">
             Sign in to your account to continue
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="email"
+                className="mb-1 block text-sm font-medium text-gray-700"
+              >
                 Email
               </label>
               <input
                 id="email"
                 type="email"
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
             {/* password, checkbox, button... */}
@@ -344,11 +401,11 @@ The architecture:
 
 ```mermaid
 graph TD
-    A[User prompt] --> B[A LLM API with system prompt teaching JSONL format]
+    A[User prompt] --> B[LLM receives system prompt teaching JSONL format]
     B --> C[JSONL patches streamed]
     C --> D[useUIStream hook parses patches]
     D --> E[Renderer applies patches to tree]
-    E --> F[Component registry maps types → React components]
+    E --> F[Component registry maps types to React components]
 ```
 
 The key constraint is the **component catalog**. You define available components upfront with Zod schemas:
@@ -453,12 +510,12 @@ When you prompt "Create a welcome card with a button," the model generates:
 
 These patches stream to the frontend. The `useUIStream` hook parses them. The `Renderer` component applies them to a tree structure. Finally, the component registry maps types to React implementations:
 
-```typescript
+```tsx
 export const registry: ComponentRegistry = {
   Card: ({ element, children }) => (
-    <article className="p-4 border-2 border-gray-500 rounded-md max-w-xs shadow bg-gray-800 text-gray-100">
+    <article className="max-w-xs rounded-md border-2 border-gray-500 bg-gray-800 p-4 text-gray-100 shadow">
       <header>
-        <h2 className="font-bold text-xl">{element.props.title}</h2>
+        <h2 className="text-xl font-bold">{element.props.title}</h2>
         {element.props.description && (
           <p className="text-gray-400">{element.props.description}</p>
         )}
