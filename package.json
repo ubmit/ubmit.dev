@@ -27,6 +27,7 @@
     "chart.js": "^4.5.1",
     "clsx": "^2.1.0",
     "rehype-mermaid": "^3.0.0",
+    "remark-mermaidjs": "^7.0.0",
     "tailwind-merge": "^3.4.0",
     "typescript": "^5.9.3"
   },

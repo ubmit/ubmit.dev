@@ -35,12 +35,12 @@ importers:
       clsx:
         specifier: ^2.1.0
         version: 2.1.1
-      mermaid:
-        specifier: ^11.12.2
-        version: 11.12.2
       rehype-mermaid:
         specifier: ^3.0.0
         version: 3.0.0(playwright@1.57.0)
+      remark-mermaidjs:
+        specifier: ^7.0.0
+        version: 7.0.0(playwright@1.57.0)
       tailwind-merge:
         specifier: ^3.4.0
         version: 3.4.0
@@ -2375,6 +2375,15 @@ packages:
 
   remark-mdx@3.1.1:
     resolution: {integrity: sha512-Pjj2IYlUY3+D8x00UJsIOg5BEvfMyeI+2uLPn9VO9Wg4MEtN/VTIq2NEJQfde9PnX15KgtHyl9S0BcTnWrIuWg==}
+
+  remark-mermaidjs@7.0.0:
+    resolution: {integrity: sha512-daW4LzAX1q3//SdRsTQ0ELyAXdy0yvJJQ2S0he5ddhZmnt8cyTv3QN536ezMY/OY4a3XGDMz+NU1SOSQ5xcYAA==}
+    deprecated: Use rehype-mermaid instead
+    peerDependencies:
+      playwright: '1'
+    peerDependenciesMeta:
+      playwright:
+        optional: true
 
   remark-parse@11.0.0:
     resolution: {integrity: sha512-FCxlKLNGknS5ba/1lmpYijMUzX2esxW5xQqjWxw2eHFfS2MSdaHVINFmhjo+qN1WhZhNimq0dZATN9pH0IDrpA==}
@@ -5586,6 +5595,17 @@ snapshots:
       micromark-extension-mdxjs: 3.0.0
     transitivePeerDependencies:
       - supports-color
+
+  remark-mermaidjs@7.0.0(playwright@1.57.0):
+    dependencies:
+      '@types/mdast': 4.0.4
+      hast-util-from-html-isomorphic: 2.0.0
+      mermaid-isomorphic: 3.0.4(playwright@1.57.0)
+      unified: 11.0.5
+      unist-util-visit-parents: 6.0.2
+      vfile: 6.0.3
+    optionalDependencies:
+      playwright: 1.57.0
 
   remark-parse@11.0.0:
     dependencies:
