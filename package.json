@@ -23,7 +23,7 @@
     "@astrojs/sitemap": "^3.7.0",
     "@fontsource/work-sans": "^5.0.18",
     "@radix-ui/colors": "^3.0.0",
-    "astro": "^5.16.14",
+    "astro": "^5.16.16",
     "chart.js": "^4.5.1",
     "clsx": "^2.1.0",
     "tailwind-merge": "^3.4.0",
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@myriaddreamin/typst-ts-node-compiler": "0.7.0-rc2",
-    "@playwright/test": "^1.57.0",
+    "@playwright/test": "^1.58.0",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.1.18",
     "prettier": "^3.8.1",
