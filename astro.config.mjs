@@ -1,7 +1,6 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import tailwindcss from "@tailwindcss/vite";
-import remarkMermaid from "remark-mermaidjs";
 
 import sitemap from "@astrojs/sitemap";
 
@@ -15,7 +14,6 @@ export default defineConfig({
         dark: "catppuccin-mocha",
       },
     },
-    remarkPlugins: [[remarkMermaid, { launchOptions: { args: ["--no-sandbox"] } }]],
   },
   vite: {
     plugins: [tailwindcss()],

@@ -63,47 +63,6 @@
     font-size: var(--text-sm);
     font-weight: var(--font-weight-light);
   }
-
-  /* Mermaid diagrams */
-  .prose p:has(svg[id^="mermaid-"]) {
-    display: flex;
-    justify-content: center;
-    margin: var(--spacing-8) 0;
-  }
-
-  .prose svg[id^="mermaid-"] {
-    max-width: 100%;
-    height: auto;
-  }
-
-  /* Mermaid light mode (default) - !important needed to override inline SVG styles */
-  .prose svg[id^="mermaid-"] .node rect,
-  .prose svg[id^="mermaid-"] .node circle,
-  .prose svg[id^="mermaid-"] .node ellipse,
-  .prose svg[id^="mermaid-"] .node polygon {
-    fill: var(--color-gray-200) !important;
-    stroke: var(--color-gray-700) !important;
-  }
-
-  .prose svg[id^="mermaid-"] .label,
-  .prose svg[id^="mermaid-"] .label text,
-  .prose svg[id^="mermaid-"] .nodeLabel,
-  .prose svg[id^="mermaid-"] .nodeLabel p,
-  .prose svg[id^="mermaid-"] .edgeLabel {
-    color: var(--color-gray-1200) !important;
-    fill: var(--color-gray-1200) !important;
-  }
-
-  .prose svg[id^="mermaid-"] .edgePath .path,
-  .prose svg[id^="mermaid-"] .flowchart-link {
-    stroke: var(--color-gray-800) !important;
-  }
-
-  .prose svg[id^="mermaid-"] .arrowheadPath,
-  .prose svg[id^="mermaid-"] .marker {
-    fill: var(--color-gray-800) !important;
-    stroke: var(--color-gray-800) !important;
-  }
 }
 
 @utility scrollbar-hide {

@@ -34,18 +34,6 @@ A designer builds a mockup, a developer interprets the visuals, and somewhere th
 
 Figma MCP (Model Context Protocol) lets an agent read Figma files programmatically. Extract components, design tokens, variants. Generate code that matches design exactly. No interpretation gap.
 
-The workflow:
-
-```mermaid
-graph TD
-    A[Figma Design System] --> B[get_design_context extract component structure]
-    A --> C[get_variable_defs extract design tokens]
-    B --> D[Component Code + Design Tokens]
-    C --> D
-    D --> E[React components with Base UI + Tailwind CSS]
-    E --> F[Storybook stories one per variant]
-```
-
 **Step 1: Extract design tokens**
 
 ```typescript
@@ -396,17 +384,6 @@ Even within the same framework, naming conventions and component structures shif
 **The fix**: Stop asking for code. Ask for data.
 
 json-render implements this pattern: AI → JSONL → UI. Instead of asking the LLM to output React/Vue/whatever directly, you teach it to output JSON Lines patches describing the UI structure. A separate renderer applies those patches and maps them to your component library.
-
-The architecture:
-
-```mermaid
-graph TD
-    A[User prompt] --> B[LLM receives system prompt teaching JSONL format]
-    B --> C[JSONL patches streamed]
-    C --> D[useUIStream hook parses patches]
-    D --> E[Renderer applies patches to tree]
-    E --> F[Component registry maps types to React components]
-```
 
 The key constraint is the **component catalog**. You define available components upfront with Zod schemas:
 
