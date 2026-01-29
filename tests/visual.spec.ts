@@ -4,6 +4,8 @@ const pages = [
   { name: "homepage", path: "/" },
   { name: "blog-post", path: "/writing/agentic-engineering-without-lock-in/" },
   { name: "moving", path: "/moving" },
+  { name: "talks", path: "/talks" },
+  { name: "talk-post", path: "/talks/from-prompts-to-predictable-user-interfaces/" },
 ];
 
 for (const { name, path } of pages) {

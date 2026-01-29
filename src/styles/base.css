@@ -55,7 +55,6 @@
 
   .prose code {
     color: var(--color-gray-1200);
-    font-weight: var(--font-weight-bold);
   }
 
   .prose time {
@@ -112,5 +111,34 @@ html {
   .astro-code span {
     color: var(--shiki-dark) !important;
     background-color: var(--shiki-dark-bg) !important;
+  }
+
+  /* Mermaid dark mode */
+  .prose svg[id^="mermaid-"] .node rect,
+  .prose svg[id^="mermaid-"] .node circle,
+  .prose svg[id^="mermaid-"] .node ellipse,
+  .prose svg[id^="mermaid-"] .node polygon {
+    fill: var(--color-gray-300) !important;
+    stroke: var(--color-gray-700) !important;
+  }
+
+  .prose svg[id^="mermaid-"] .label,
+  .prose svg[id^="mermaid-"] .label text,
+  .prose svg[id^="mermaid-"] .nodeLabel,
+  .prose svg[id^="mermaid-"] .nodeLabel p,
+  .prose svg[id^="mermaid-"] .edgeLabel {
+    color: var(--color-gray-1100) !important;
+    fill: var(--color-gray-1100) !important;
+  }
+
+  .prose svg[id^="mermaid-"] .edgePath .path,
+  .prose svg[id^="mermaid-"] .flowchart-link {
+    stroke: var(--color-gray-600) !important;
+  }
+
+  .prose svg[id^="mermaid-"] .arrowheadPath,
+  .prose svg[id^="mermaid-"] .marker {
+    fill: var(--color-gray-600) !important;
+    stroke: var(--color-gray-600) !important;
   }
 }
