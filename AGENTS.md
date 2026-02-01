@@ -8,9 +8,6 @@
 - build: `pnpm run build` (astro check + build)
 - format: `pnpm run format`
 - typecheck: `pnpm exec astro check`
-- visual tests: `pnpm run test`
-- visual tests UI: `pnpm run test:ui`
-- update snapshots: `pnpm run test:update`
 
 ## Stack + tools
 - package mgr: pnpm
@@ -41,11 +38,6 @@
 
 ## Tests + CI
 - CI jobs: lint-and-format, type-check, build
-- visual snapshots: `tests/visual.spec.ts-snapshots/` (`*-chromium-darwin.png`)
-- snapshot update flow:
-  1) `pnpm run build`
-  2) `pnpm run test:update`
-  3) commit snapshots
 
 ## Git
 - commits: Conventional Commits, small + intentional
