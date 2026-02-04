@@ -20,21 +20,10 @@
   --color-gray-1200: var(--slate-12);
   --color-page-bg: var(--color-gray-100);
   --color-ledger-line: var(--color-gray-400);
+  --color-ledger-muted: var(--color-gray-1000);
 
   --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Commit Mono", ui-monospace, monospace;
-}
-
-:root.light {
-  --color-page-bg: var(--color-gray-100);
-  --color-ledger-line: var(--color-gray-400);
-  --ledger-muted: var(--color-gray-1000);
-}
-
-:root.dark {
-  --color-page-bg: var(--color-gray-100);
-  --color-ledger-line: var(--color-gray-600);
-  --ledger-muted: var(--color-gray-1000);
 }
 
 @layer utilities {
