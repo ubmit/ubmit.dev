@@ -12,7 +12,7 @@ interface Props {
 const { title, description, pubDate, href, featured = false } = Astro.props;
 ---
 
-<li class="border-b border-[var(--ledger-line)] py-3 last:border-b-0">
+<li class="border-b border-ledger-line pb-3 pt-3 first:pt-0 last:border-b-0 last:pb-0">
   <a
     href={href}
     class="group text-gray-1100 transition-colors hover:text-gray-1200"
@@ -22,7 +22,7 @@ const { title, description, pubDate, href, featured = false } = Astro.props;
         <span class="font-medium">{title}</span>
         {
           featured && (
-            <span class="text-gray-1000 rounded-full border border-[var(--ledger-line)] px-2 py-0.5 text-[10px] font-mono uppercase tracking-[0.18em]">
+            <span class="text-gray-1000 rounded-full border border-ledger-line px-2 py-0.5 text-[10px] font-mono uppercase tracking-[0.18em]">
               Featured
             </span>
           )

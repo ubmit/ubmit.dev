@@ -26,13 +26,13 @@
 
 :root.light {
   --color-page-bg: var(--color-gray-100);
-  --ledger-line: var(--color-gray-400);
+  --color-ledger-line: var(--color-gray-400);
   --ledger-muted: var(--color-gray-1000);
 }
 
 :root.dark {
   --color-page-bg: var(--color-gray-100);
-  --ledger-line: var(--color-gray-600);
+  --color-ledger-line: var(--color-gray-600);
   --ledger-muted: var(--color-gray-1000);
 }
 
