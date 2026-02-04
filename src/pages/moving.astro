@@ -4,6 +4,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import ActivityGraph from "../components/ActivityGraph/index.astro";
 import { getActivities } from "../lib/strava";
 import { SITE_DESCRIPTION } from "../consts";
+import SectionHeading from "../components/SectionHeading.astro";
 import "../styles/base.css";
 
 const activities = await getActivities();
@@ -14,6 +15,9 @@ const activities = await getActivities();
     <BaseHead title="Moving" description={SITE_DESCRIPTION} />
   </head>
   <BaseLayout>
-    <ActivityGraph activities={activities} />
+    <section class="grid grid-cols-[140px_1fr] gap-6 border-t border-[var(--ledger-line)] pt-6">
+      <SectionHeading title="Moving" />
+      <ActivityGraph activities={activities} />
+    </section>
   </BaseLayout>
 </html>

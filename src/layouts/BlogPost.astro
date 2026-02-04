@@ -15,19 +15,29 @@ const { title, description, pubDate, updatedDate } = Astro.props;
   </head>
 
   <BaseLayout>
-    <article class="prose dark:prose-invert">
-      <h1 class="mb-0">{title}</h1>
-      <div>
-        <FormattedDate date={pubDate} />
-        {
-          updatedDate && (
-            <div class="italic">
-              Last updated on <FormattedDate date={updatedDate} />
-            </div>
-          )
-        }
-      </div>
-      <slot />
-    </article>
+    <div class="space-y-6">
+      <section class="grid grid-cols-[140px_1fr] gap-6 border-t border-[var(--ledger-line)] pt-6 first:border-t-0 first:pt-0">
+        <div class="ledger-label">Meta</div>
+        <div class="space-y-2">
+          <h1 class="text-gray-1200 text-2xl font-medium">{title}</h1>
+          <div class="text-gray-1100 text-sm font-mono">
+            <FormattedDate date={pubDate} />
+          </div>
+          {
+            updatedDate && (
+              <div class="text-gray-1100 text-sm italic">
+                Last updated on <FormattedDate date={updatedDate} />
+              </div>
+            )
+          }
+        </div>
+      </section>
+      <section class="grid grid-cols-[140px_1fr] gap-6 border-t border-[var(--ledger-line)] pt-6">
+        <div class="ledger-label">Content</div>
+        <article class="prose dark:prose-invert">
+          <slot />
+        </article>
+      </section>
+    </div>
   </BaseLayout>
 </html>

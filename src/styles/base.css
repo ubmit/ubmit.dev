@@ -23,6 +23,18 @@
   --font-mono: "Commit Mono", ui-monospace, monospace;
 }
 
+:root.light {
+  --page-bg: var(--color-gray-100);
+  --ledger-line: var(--color-gray-400);
+  --ledger-muted: var(--color-gray-1000);
+}
+
+:root.dark {
+  --page-bg: var(--color-gray-100);
+  --ledger-line: var(--color-gray-600);
+  --ledger-muted: var(--color-gray-1000);
+}
+
 @layer utilities {
   /* Prose styles - in utilities layer to match typography plugin */
   .prose h1 {
@@ -62,6 +74,14 @@
     font-family: var(--font-mono);
     font-size: var(--text-sm);
     font-weight: var(--font-weight-light);
+  }
+
+  .ledger-label {
+    color: var(--ledger-muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
   }
 }
 
