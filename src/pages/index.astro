@@ -20,7 +20,7 @@ import "../styles/base.css";
   </head>
   <BaseLayout>
     <!-- About Section -->
-    <section class="grid grid-cols-[140px_1fr] gap-6 border-t border-[var(--ledger-line)] pt-6 first:border-t-0 first:pt-0">
+    <section class="grid grid-cols-[140px_1fr] gap-6">
       <SectionHeading title="About" />
       <p class="text-gray-1100 leading-7">
         I'm Gui, a Frontend Engineer focused on crafting polished and user-first
@@ -39,7 +39,7 @@ import "../styles/base.css";
     </section>
 
     <!-- Currently Section -->
-    <section class="grid grid-cols-[140px_1fr] gap-6 border-t border-[var(--ledger-line)] pt-6">
+    <section class="grid grid-cols-[140px_1fr] gap-6">
       <SectionHeading title="Currently" />
       <div class="text-gray-1100 space-y-4 leading-7">
         <p>
@@ -48,26 +48,6 @@ import "../styles/base.css";
           >. I'm building software alongside AI coding agents and exploring how
           to orchestrate multiple agents, manage context effectively, and
           maintain a vendor lock-in-free setup.
-        </p>
-        <p class="text-sm">
-          <a
-            href="/writing/agentic-engineering-without-lock-in/"
-            class="text-gray-1200 hover:text-gray-1100 inline-flex items-center gap-1 font-medium transition-colors"
-          >
-            Read more: Agentic engineering without lock-in
-            <ArrowUpRightIcon
-              class="inline-block"
-              aria-label="arrow up right icon"
-              size={14}
-            />
-          </a>
-        </p>
-        <p>
-          Looking for my next role building user-first products with a focus on
-          UI. Giving priority to AI-first companies or those making the jump.
-          Know something interesting? <SubtleLink href="mailto:gui@ubmit.dev"
-            >Let's chat!</SubtleLink
-          >
         </p>
         <p>
           I'm also reading <SubtleLink
@@ -84,7 +64,7 @@ import "../styles/base.css";
     </section>
 
     <!-- Writing Section -->
-    <section class="grid grid-cols-[140px_1fr] gap-6 border-t border-[var(--ledger-line)] pt-6">
+    <section class="grid grid-cols-[140px_1fr] gap-6">
       <SectionHeading title="Writing" href="/writing" />
       <ul>
         {
@@ -102,7 +82,7 @@ import "../styles/base.css";
     </section>
 
     <!-- Talks Section -->
-    <section class="grid grid-cols-[140px_1fr] gap-6 border-t border-[var(--ledger-line)] pt-6">
+    <section class="grid grid-cols-[140px_1fr] gap-6">
       <SectionHeading title="Talks" href="/talks" />
       <ul>
         {
