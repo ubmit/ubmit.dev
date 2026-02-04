@@ -13,6 +13,7 @@
 - package mgr: pnpm
 - github: gh
 - web automation: `agent-browser` (see `agent-browser --help`)
+- use `agent-browser` for UI validation only after larger UI changes or a batch of small tweaks; skip for tiny single change if confident
 - frontend tasks: use `/frontend-design`
 - framework: Astro (SSG sites), React + TanStack Start if app needed
 
