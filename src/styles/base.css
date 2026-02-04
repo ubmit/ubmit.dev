@@ -78,10 +78,12 @@
 
   .ledger-label {
     color: var(--ledger-muted);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    letter-spacing: 0.2em;
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    letter-spacing: var(--tracking-wider);
     text-transform: uppercase;
+    line-height: 1.75rem;
   }
 }
 
