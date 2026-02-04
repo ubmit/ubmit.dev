@@ -8,11 +8,12 @@ type Props = {
 
 const { activities } = Astro.props;
 
+const normalizeValue = (value: number) => (value === 0 ? null : value);
 const chartData = {
   labels: activities.map((day) => formatDate(day.date)),
-  swimData: activities.map((day) => (day.swim ?? 0) / 1000),
-  runData: activities.map((day) => day.run ?? 0),
-  rideData: activities.map((day) => day.ride ?? 0),
+  swimData: activities.map((day) => normalizeValue((day.swim ?? 0) / 1000)),
+  runData: activities.map((day) => normalizeValue(day.run ?? 0)),
+  rideData: activities.map((day) => normalizeValue(day.ride ?? 0)),
 };
 ---
 
@@ -20,7 +21,7 @@ const chartData = {
   <canvas id="activityChart" data-chart={JSON.stringify(chartData)}></canvas>
   <div
     id="chartTooltip"
-    class="text-gray-1100 pointer-events-none absolute hidden rounded-md border border-gray-600 bg-gray-200 px-3 py-2 font-mono text-sm whitespace-nowrap"
+    class="text-gray-1100 border-ledger-line bg-page-bg pointer-events-none absolute hidden rounded-md border px-3 py-2 font-mono text-sm whitespace-nowrap"
   >
   </div>
 </div>

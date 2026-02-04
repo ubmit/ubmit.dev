@@ -1,4 +1,6 @@
 ---
+import LedgerLabel from "./LedgerLabel.astro";
+
 interface Props {
   title: string;
   href?: string;
@@ -7,14 +9,4 @@ interface Props {
 const { title, href } = Astro.props;
 ---
 
-<h2 class="mb-5 font-medium sm:mb-4">
-  {
-    Boolean(href) ? (
-      <a class="hover:text-gray-1100" href={href}>
-        {title}
-      </a>
-    ) : (
-      <span>{title}</span>
-    )
-  }
-</h2>
+<LedgerLabel as="h2" href={href}>{title}</LedgerLabel>

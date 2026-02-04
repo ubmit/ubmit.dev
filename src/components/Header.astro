@@ -1,10 +1,11 @@
 ---
 import { SITE_TITLE } from "../consts";
+import LedgerLabel from "./LedgerLabel.astro";
 ---
 
-<header class="mb-32 flex flex-col items-start">
-  <a class="text-medium inline-block font-medium no-underline" href="/">
+<header class="flex flex-col pb-4">
+  <a class="inline-block text-lg font-medium no-underline" href="/">
     {SITE_TITLE}
   </a>
-  <span class="text-gray-1100 leading-4 font-medium">Frontend Engineer</span>
+  <LedgerLabel as="span">Frontend Engineer</LedgerLabel>
 </header>

@@ -2,6 +2,7 @@
 import BaseHead from "../components/BaseHead.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import FormattedDate from "../components/FormattedDate.astro";
+import SectionHeading from "../components/SectionHeading.astro";
 import "../styles/base.css";
 import { SITE_DESCRIPTION, postsSortedByPubDate } from "../consts";
 ---
@@ -11,24 +12,27 @@ import { SITE_DESCRIPTION, postsSortedByPubDate } from "../consts";
     <BaseHead title="Writing" description={SITE_DESCRIPTION} />
   </head>
   <BaseLayout>
-    <ul class="space-y-4">
-      {
-        postsSortedByPubDate.map((post) => (
-          <li>
-            <a
-              href={`/writing/${post.id}/`}
-              class="group text-gray-1100 flex items-center justify-between"
-            >
-              <span class="group-hover:text-gray-1200 transition-colors">
-                {post.data.title}
-              </span>
-              <span class="text-sm">
-                <FormattedDate date={post.data.pubDate} />
-              </span>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+    <section class="grid grid-cols-[140px_1fr] gap-6">
+      <SectionHeading title="Writing" />
+      <ul class="space-y-3">
+        {
+          postsSortedByPubDate.map((post) => (
+            <li class="border-ledger-line border-b pb-3 last:border-b-0 last:pb-0">
+              <a
+                href={`/writing/${post.id}/`}
+                class="group text-gray-1100 flex items-baseline justify-between gap-4"
+              >
+                <span class="group-hover:text-gray-1200 transition-colors">
+                  {post.data.title}
+                </span>
+                <span class="font-mono text-xs text-gray-900">
+                  <FormattedDate date={post.data.pubDate} />
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
   </BaseLayout>
 </html>
