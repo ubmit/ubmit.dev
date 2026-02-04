@@ -5,7 +5,7 @@ interface Props {
   class?: string;
 }
 
-const { as: Tag = "span", href, class: className } = Astro.props;
+const { as: Tag = "span", href, class: className } = Astro.props as Props;
 const classes =
   "text-ledger-muted font-sans text-sm font-medium uppercase tracking-wide leading-6";
 const classList = [classes, className];
