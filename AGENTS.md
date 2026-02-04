@@ -27,6 +27,7 @@
 
 ## UI + styling
 - Tailwind v4 only; use built-ins; rare globals; use `cn()` in `src/utils.ts`
+- avoid custom CSS classes/vars for typography if Tailwind utilities suffice; prefer components with inline utilities
 - colors: Radix gray scale `--gray-1`…`--gray-12`
 - fonts: Commit Mono (mono), Work Sans (sans)
 - dark mode: `prefers-color-scheme`
