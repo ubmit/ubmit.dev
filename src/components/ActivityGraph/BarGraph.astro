@@ -8,11 +8,12 @@ type Props = {
 
 const { activities } = Astro.props;
 
+const normalizeValue = (value: number) => (value === 0 ? null : value);
 const chartData = {
   labels: activities.map((day) => formatDate(day.date)),
-  swimData: activities.map((day) => (day.swim ?? 0) / 1000),
-  runData: activities.map((day) => day.run ?? 0),
-  rideData: activities.map((day) => day.ride ?? 0),
+  swimData: activities.map((day) => normalizeValue((day.swim ?? 0) / 1000)),
+  runData: activities.map((day) => normalizeValue(day.run ?? 0)),
+  rideData: activities.map((day) => normalizeValue(day.ride ?? 0)),
 };
 ---
 
