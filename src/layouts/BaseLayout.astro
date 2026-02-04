@@ -1,12 +1,10 @@
 ---
 import Header from "../components/Header.astro";
-
-const isHome = Astro.url.pathname === "/";
 ---
 
 <body class="bg-[var(--page-bg)] text-gray-1200 antialiased">
   <div class="mx-auto w-full max-w-[980px] px-6 py-16 sm:py-20">
-    <Header stacked={isHome} />
+    <Header />
     <main class="mt-10 space-y-6">
       <slot />
     </main>
