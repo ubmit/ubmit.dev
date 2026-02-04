@@ -1,0 +1,26 @@
+---
+interface Props {
+  as?: "h2" | "span" | "div";
+  href?: string;
+  class?: string;
+}
+
+const { as: Tag = "span", href, class: className } = Astro.props;
+const classes =
+  "text-gray-1000 font-sans text-sm font-medium uppercase tracking-wider leading-7";
+const combinedClass = className ? `${classes} ${className}` : classes;
+---
+
+{
+  href ? (
+    <Tag class={combinedClass}>
+      <a class="hover:text-gray-1100" href={href}>
+        <slot />
+      </a>
+    </Tag>
+  ) : (
+    <Tag class={combinedClass}>
+      <slot />
+    </Tag>
+  )
+}
