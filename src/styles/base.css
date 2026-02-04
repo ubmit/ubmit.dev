@@ -18,19 +18,20 @@
   --color-gray-1000: var(--slate-10);
   --color-gray-1100: var(--slate-11);
   --color-gray-1200: var(--slate-12);
+  --color-page-bg: var(--color-gray-100);
 
   --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Commit Mono", ui-monospace, monospace;
 }
 
 :root.light {
-  --page-bg: var(--color-gray-100);
+  --color-page-bg: var(--color-gray-100);
   --ledger-line: var(--color-gray-400);
   --ledger-muted: var(--color-gray-1000);
 }
 
 :root.dark {
-  --page-bg: var(--color-gray-100);
+  --color-page-bg: var(--color-gray-100);
   --ledger-line: var(--color-gray-600);
   --ledger-muted: var(--color-gray-1000);
 }
@@ -75,7 +76,6 @@
     font-size: var(--text-sm);
     font-weight: var(--font-weight-light);
   }
-
 }
 
 @utility scrollbar-hide {
