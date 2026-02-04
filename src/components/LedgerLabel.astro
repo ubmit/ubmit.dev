@@ -7,19 +7,19 @@ interface Props {
 
 const { as: Tag = "span", href, class: className } = Astro.props;
 const classes =
-  "text-gray-1000 font-sans text-sm font-medium uppercase tracking-wider leading-7";
-const combinedClass = className ? `${classes} ${className}` : classes;
+  "text-gray-1000 font-sans text-sm font-medium uppercase tracking-wide leading-7";
+const classList = [classes, className];
 ---
 
 {
   href ? (
-    <Tag class={combinedClass}>
+    <Tag class:list={classList}>
       <a class="hover:text-gray-1100" href={href}>
         <slot />
       </a>
     </Tag>
   ) : (
-    <Tag class={combinedClass}>
+    <Tag class:list={classList}>
       <slot />
     </Tag>
   )
