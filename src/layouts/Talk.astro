@@ -22,7 +22,7 @@ const { title, description, pubDate, updatedDate, event, slides, recording } =
         <LedgerLabel as="div">Meta</LedgerLabel>
         <div class="space-y-2">
           <h1 class="text-gray-1200 text-2xl font-medium">{title}</h1>
-          <div class="text-gray-1100 text-sm font-mono">
+          <div class="text-gray-1100 font-mono text-sm">
             <FormattedDate date={pubDate} />
           </div>
           {event && <div class="text-gray-1100 text-sm">Event: {event}</div>}

@@ -12,23 +12,23 @@ interface Props {
 const { title, description, pubDate, href, featured = false } = Astro.props;
 ---
 
-<li class="pb-3 pt-3 first:pt-0 last:pb-0">
+<li class="pt-3 pb-3 first:pt-0 last:pb-0">
   <a
     href={href}
-    class="group text-gray-1100 transition-colors hover:text-gray-1200"
+    class="group text-gray-1100 hover:text-gray-1200 transition-colors"
   >
     <div class="flex items-baseline justify-between gap-4">
       <div class="flex items-baseline gap-3">
         <span class="font-medium">{title}</span>
         {
           featured && (
-            <span class="text-gray-1000 rounded-full border border-ledger-line px-2 py-0.5 text-[10px] font-mono uppercase tracking-[0.18em]">
+            <span class="text-gray-1000 border-ledger-line rounded-full border px-2 py-0.5 font-mono text-[10px] tracking-[0.18em] uppercase">
               Featured
             </span>
           )
         }
       </div>
-      <span class="text-gray-900 text-xs font-mono">
+      <span class="font-mono text-xs text-gray-900">
         <FormattedDate date={pubDate} />
       </span>
     </div>

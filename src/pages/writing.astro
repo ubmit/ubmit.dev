@@ -17,7 +17,7 @@ import { SITE_DESCRIPTION, postsSortedByPubDate } from "../consts";
       <ul class="space-y-3">
         {
           postsSortedByPubDate.map((post) => (
-            <li class="border-b border-ledger-line pb-3 last:border-b-0 last:pb-0">
+            <li class="border-ledger-line border-b pb-3 last:border-b-0 last:pb-0">
               <a
                 href={`/writing/${post.id}/`}
                 class="group text-gray-1100 flex items-baseline justify-between gap-4"
@@ -25,7 +25,7 @@ import { SITE_DESCRIPTION, postsSortedByPubDate } from "../consts";
                 <span class="group-hover:text-gray-1200 transition-colors">
                   {post.data.title}
                 </span>
-                <span class="text-gray-900 text-xs font-mono">
+                <span class="font-mono text-xs text-gray-900">
                   <FormattedDate date={post.data.pubDate} />
                 </span>
               </a>

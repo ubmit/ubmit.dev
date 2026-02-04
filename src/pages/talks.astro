@@ -17,7 +17,7 @@ import { SITE_DESCRIPTION, talksSortedByPubDate } from "../consts";
       <ul class="space-y-3">
         {
           talksSortedByPubDate.map((talk) => (
-            <li class="border-b border-ledger-line pb-3 last:border-b-0 last:pb-0">
+            <li class="border-ledger-line border-b pb-3 last:border-b-0 last:pb-0">
               <a
                 href={`/talks/${talk.id}/`}
                 class="group text-gray-1100 flex items-baseline justify-between gap-4"
@@ -25,7 +25,7 @@ import { SITE_DESCRIPTION, talksSortedByPubDate } from "../consts";
                 <span class="group-hover:text-gray-1200 transition-colors">
                   {talk.data.title}
                 </span>
-                <span class="text-gray-900 text-xs font-mono">
+                <span class="font-mono text-xs text-gray-900">
                   <FormattedDate date={talk.data.pubDate} />
                 </span>
               </a>
