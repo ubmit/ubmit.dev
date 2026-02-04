@@ -1,8 +1,21 @@
 ---
 import { SITE_TITLE } from "../consts";
+
+interface Props {
+  stacked?: boolean;
+}
+
+const { stacked = false } = Astro.props;
 ---
 
-<header class="flex items-baseline justify-between border-b border-[var(--ledger-line)] pb-4">
+<header
+  class:list={[
+    "border-[var(--ledger-line)] pb-4",
+    stacked
+      ? "flex flex-col gap-1 border-b"
+      : "flex items-baseline justify-between border-b",
+  ]}
+>
   <a class="text-lg inline-block font-medium no-underline" href="/">
     {SITE_TITLE}
   </a>
