@@ -19,14 +19,13 @@
 ## Code style
 - TS strict, no `any`, no default exports, inline `export`
 - avoid new abstractions unless needed; prefer clear names over comments
-- avoid helpers for trivial expressions; avoid `useEffect` unless required
+- avoid helpers for trivial expressions
 - no `try/catch` unless necessary
-- file names: kebab-case for `.ts`/`.tsx`/`.jsx`
 - Astro: use frontmatter (`---`), keep markup semantic
 - formatting: Prettier (astro + tailwind plugins)
 
 ## UI + styling
-- Tailwind v4 only; use built-ins; rare globals; use `cn()` in `src/utils.ts`
+- Tailwind v4 only; use built-ins; rare globals
 - avoid custom CSS classes/vars for typography if Tailwind utilities suffice; prefer components with inline utilities
 - colors: Radix gray scale `--gray-1`…`--gray-12`
 - fonts: Commit Mono (mono), Work Sans (sans)
