@@ -10,7 +10,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import PostCard from "../components/PostCard.astro";
 import SubtleLink from "../components/SubtleLink.astro";
-import ArrowUpRightIcon from "../components/ArrowUpRightIcon.astro";
 import "../styles/base.css";
 ---
 
@@ -20,7 +19,7 @@ import "../styles/base.css";
   </head>
   <BaseLayout>
     <!-- About Section -->
-    <section class="grid grid-cols-[140px_1fr] gap-6">
+    <section class="grid grid-cols-1 gap-6 sm:grid-cols-[140px_1fr]">
       <SectionHeading title="About" />
       <p class="text-gray-1100 leading-7">
         I'm Gui, a Frontend Engineer focused on crafting polished and user-first
@@ -39,7 +38,7 @@ import "../styles/base.css";
     </section>
 
     <!-- Currently Section -->
-    <section class="grid grid-cols-[140px_1fr] gap-6">
+    <section class="grid grid-cols-1 gap-6 sm:grid-cols-[140px_1fr]">
       <SectionHeading title="Currently" />
       <div class="text-gray-1100 space-y-4 leading-7">
         <p>
@@ -64,7 +63,7 @@ import "../styles/base.css";
     </section>
 
     <!-- Writing Section -->
-    <section class="grid grid-cols-[140px_1fr] gap-6">
+    <section class="grid grid-cols-1 gap-6 sm:grid-cols-[140px_1fr]">
       <SectionHeading title="Writing" href="/writing" />
       <ul>
         {
@@ -82,7 +81,7 @@ import "../styles/base.css";
     </section>
 
     <!-- Talks Section -->
-    <section class="grid grid-cols-[140px_1fr] gap-6">
+    <section class="grid grid-cols-1 gap-6 sm:grid-cols-[140px_1fr]">
       <SectionHeading title="Talks" href="/talks" />
       <ul>
         {
