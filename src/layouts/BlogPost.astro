@@ -3,7 +3,6 @@ import type { CollectionEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import LedgerLabel from "../components/LedgerLabel.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
@@ -16,9 +15,8 @@ const { title, description, pubDate, updatedDate } = Astro.props;
   </head>
 
   <BaseLayout>
-    <div class="space-y-6">
-      <section class="grid grid-cols-1 gap-6 sm:grid-cols-[140px_1fr]">
-        <LedgerLabel as="div" class="hidden sm:block">Meta</LedgerLabel>
+    <div class="mx-auto space-y-6">
+      <section class="space-y-2">
         <div class="space-y-2">
           <h1 class="text-gray-1200 text-2xl font-medium">{title}</h1>
           <div class="text-gray-1100 font-mono text-sm">
@@ -33,8 +31,7 @@ const { title, description, pubDate, updatedDate } = Astro.props;
           }
         </div>
       </section>
-      <section class="grid grid-cols-1 gap-6 sm:grid-cols-[140px_1fr]">
-        <LedgerLabel as="div" class="hidden sm:block">Content</LedgerLabel>
+      <section>
         <article class="prose dark:prose-invert">
           <slot />
         </article>
