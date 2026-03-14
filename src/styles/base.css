@@ -49,11 +49,15 @@
   }
 
   .prose a {
-    color: var(--color-gray-1100);
+    text-decoration-line: underline;
+    text-decoration-color: var(--color-gray-400);
+    text-underline-offset: 4px;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
   }
 
   .prose a:hover {
     color: var(--color-gray-1200);
+    text-decoration-color: var(--color-gray-600);
   }
 
   .prose code {
