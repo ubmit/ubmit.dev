@@ -8,10 +8,11 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "format": "prettier --write ./src --plugin=prettier-plugin-astro --plugin=prettier-plugin-tailwindcss",
-    "format:check": "prettier --check ./src --plugin=prettier-plugin-astro --plugin=prettier-plugin-tailwindcss",
+    "format": "vp fmt ./src",
+    "format:check": "vp fmt --check ./src",
     "resume:compile": "typst compile ./resume/resume.typ ./public/resume.pdf",
-    "resume:watch": "typst watch ./resume/resume.typ ./public/resume.pdf"
+    "resume:watch": "typst watch ./resume/resume.typ ./public/resume.pdf",
+    "prepare": "vp config"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.8",
@@ -31,10 +32,14 @@
     "@myriaddreamin/typst-ts-node-compiler": "0.7.0-rc2",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.1.18",
-    "prettier": "^3.8.1",
-    "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.7.2",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^4.1.18",
+    "vite-plus": "latest"
+  },
+  "packageManager": "pnpm@10.32.1",
+  "pnpm": {
+    "overrides": {
+      "vite": "npm:@voidzero-dev/vite-plus-core@latest",
+      "vitest": "npm:@voidzero-dev/vite-plus-test@latest"
+    }
   }
 }
-
