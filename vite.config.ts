@@ -9,6 +9,6 @@ export default defineConfig({
     sortTailwindcss: {},
     printWidth: 80,
     sortPackageJson: false,
-    ignorePatterns: [],
+    ignorePatterns: ["AGENTS.md"],
   },
 });
