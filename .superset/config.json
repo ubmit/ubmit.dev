@@ -1,7 +1,4 @@
 {
-  "setup": [
-    "pnpm install",
-    "fnm use --install-if-missing || nvm use"
-  ],
+  "setup": ["pnpm install", "vp config"],
   "teardown": []
 }
