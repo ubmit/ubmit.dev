@@ -18,9 +18,6 @@
   --color-gray-1000: var(--slate-10);
   --color-gray-1100: var(--slate-11);
   --color-gray-1200: var(--slate-12);
-  --color-page-bg: var(--color-gray-100);
-  --color-ledger-line: var(--color-gray-400);
-  --color-ledger-muted: var(--color-gray-1000);
 
   --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Commit Mono", ui-monospace, monospace;

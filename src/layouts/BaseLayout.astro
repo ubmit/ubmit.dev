@@ -2,17 +2,20 @@
 import Header from "../components/Header.astro";
 ---
 
-<body class="bg-page-bg text-gray-1200 antialiased">
+<body class="bg-gray-100 text-gray-1200 antialiased">
   <div
-    class="bg-page-bg pointer-events-none fixed top-0 left-0 z-50 h-14 w-full backdrop-blur-xl [-webkit-mask-image:linear-gradient(to_bottom,black,transparent)]"
+    class="bg-gray-100 pointer-events-none fixed top-0 left-0 z-50 h-14 w-full backdrop-blur-xl [-webkit-mask-image:linear-gradient(to_bottom,black,transparent)]"
   >
   </div>
   <div class="mx-auto w-full max-w-2xl px-6 py-16 sm:py-20">
     <Header />
-    <main class="mt-14 space-y-6">
+    <main class="mt-14 space-y-16">
       <slot />
     </main>
   </div>
+ <div
+    class="bg-gray-100 pointer-events-none fixed bottom-0 left-0 z-50 h-14 w-full backdrop-blur-xl [-webkit-mask-image:linear-gradient(to_top,black,transparent)]"
+  >
 </body>
 
 <script is:inline>

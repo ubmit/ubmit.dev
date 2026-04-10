@@ -18,8 +18,7 @@ import "../styles/base.css";
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
   <BaseLayout>
-    <!-- About Section -->
-    <section class="flex flex-col gap-2">
+    <section class="flex flex-col gap-1">
       <SectionHeading title="About" />
       <p class="text-gray-1100 leading-7">
         I'm Gui, a Frontend Engineer focused on crafting polished and user-first
@@ -37,14 +36,11 @@ import "../styles/base.css";
       </p>
     </section>
 
-    <!-- Currently Section -->
-    <section class="flex flex-col gap-2">
+    <section class="flex flex-col gap-1">
       <SectionHeading title="Currently" />
       <div class="text-gray-1100 space-y-4 leading-7">
         <p>
-          I'm diving deep into <em class="text-gray-1200 font-serif italic"
-            >agentic engineering</em
-          >. I'm building software alongside AI coding agents and exploring how
+          I'm diving deep into agentic engineering. I'm building software alongside AI coding agents and exploring how
           to orchestrate multiple agents, manage context effectively, and
           building predictable UIs from prompts.
         </p>
@@ -57,8 +53,7 @@ import "../styles/base.css";
       </div>
     </section>
 
-    <!-- Writing Section -->
-    <section class="flex flex-col gap-2">
+    <section class="flex flex-col gap-1">
       <SectionHeading title="Writing" href="/writing" />
       <ul>
         {
@@ -66,17 +61,14 @@ import "../styles/base.css";
             <PostCard
               title={post.data.title}
               description={post.data.description}
-              pubDate={post.data.pubDate}
               href={`/writing/${post.id}/`}
-              featured={index === 0}
             />
           ))
         }
       </ul>
     </section>
 
-    <!-- Talks Section -->
-    <section class="flex flex-col gap-2">
+    <section class="flex flex-col gap-1">
       <SectionHeading title="Talks" href="/talks" />
       <ul>
         {
@@ -84,9 +76,7 @@ import "../styles/base.css";
             <PostCard
               title={talk.data.title}
               description={talk.data.description}
-              pubDate={talk.data.pubDate}
               href={`/talks/${talk.id}/`}
-              featured={index === 0}
             />
           ))
         }
