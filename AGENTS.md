@@ -1,14 +1,57 @@
-# Ubmit.dev Agent Guide
+# ubmit.dev Agent Guide
 
 This app was scaffolded with `remix new`. Use these conventions when continuing to build it out.
 
 ## Commands
 
+Use `vp` (Vite+) for all project interactions instead of calling `npm`, `pnpm`, `yarn`, or `npx` directly.
+
+### Development
+
 ```sh
-npm i
-npm run start
-npm test
-npm run typecheck
+vp install          # install dependencies
+vp dev              # start the dev server
+vp check            # run format, lint, and type checks together
+vp lint             # run linting
+vp fmt              # run formatting
+vp test             # run tests
+```
+
+### Running scripts
+
+```sh
+vp run <script>     # run a package.json script (e.g., vp run start, vp run typecheck)
+```
+
+### Dependencies
+
+```sh
+vp add <pkg>        # add a dependency
+vp add -D <pkg>     # add a dev dependency
+vp remove <pkg>     # remove a dependency
+vp update           # update dependencies
+vp outdated         # list outdated dependencies
+vp dedupe           # deduplicate dependencies
+vp why <pkg>        # show why a package is installed
+vp info <pkg>       # show package info
+```
+
+### Other `vp` commands
+
+```sh
+vp exec <bin>       # run a local project binary
+vp dlx <pkg>        # download and run a package binary without adding it as a dependency
+vp build            # build for production
+vp preview          # preview the production build locally
+vp cache clean      # clear task cache entries
+```
+
+### Package manager passthrough
+
+If you need a package manager command that `vp` does not wrap directly:
+
+```sh
+vp pm <command>     # call the underlying package manager directly
 ```
 
 ## Building Features
