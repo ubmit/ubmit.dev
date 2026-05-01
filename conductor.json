@@ -1,7 +1,0 @@
-{
-  "scripts": {
-    "setup": "cp \"$CONDUCTOR_ROOT_PATH/.env\" .env; pnpm install; vp config",
-    "run": "pnpm run dev --port $CONDUCTOR_PORT",
-    "archive": "rm -rf \"$HOME/Library/Application Support/com.conductor.app.dev.$CONDUCTOR_WORKSPACE_NAME\""
-  }
-}
