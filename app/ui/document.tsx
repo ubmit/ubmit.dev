@@ -10,16 +10,16 @@ export interface DocumentProps {
 const DEFAULT_TITLE = decodeURIComponent("Ubmit.dev");
 
 export function Document() {
-  return ({ title = DEFAULT_TITLE, children }: DocumentProps) => (
+  return ({ children, title = DEFAULT_TITLE }: DocumentProps) => (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
         <title>{title}</title>
       </head>
       <body>
         {children}
-        <script type="module" src={routes.assets.href({ path: "app/assets/entry.ts" })}></script>
+        <script src={routes.assets.href({ path: "app/assets/entry.ts" })} type="module"></script>
       </body>
     </html>
   );

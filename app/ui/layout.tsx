@@ -9,12 +9,11 @@ export interface LayoutProps {
 }
 
 export function Layout() {
-  return ({ title, children }: LayoutProps) => (
+  return ({ children, title }: LayoutProps) => (
     <Document title={title}>
       <header>
         <nav>
-          <a href={routes.home.href()}>Home</a>{" "}
-          <a href={routes.writing.index.href()}>Writing</a>
+          <a href={routes.home.href()}>Home</a> <a href={routes.writing.index.href()}>Writing</a>
         </nav>
       </header>
       <main>{children}</main>

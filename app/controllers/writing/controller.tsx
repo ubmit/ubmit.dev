@@ -8,7 +8,7 @@ import { render } from "../../utils/render.tsx";
 export default {
   actions: {
     async index({ request }) {
-      let posts = getAllPosts();
+      const posts = getAllPosts();
       return render(
         <Layout title="writing">
           <WritingIndexPage posts={posts} />
@@ -17,8 +17,8 @@ export default {
       );
     },
 
-    async show({ request, params }) {
-      let post = getPostBySlug(params.slug);
+    async show({ params, request }) {
+      const post = getPostBySlug(params.slug);
       if (!post) {
         return new Response("Not Found", { status: 404 });
       }
@@ -39,9 +39,7 @@ function WritingIndexPage() {
       <ul>
         {posts.map((post) => (
           <li key={post.slug}>
-            <a href={routes.writing.show.href({ slug: post.slug })}>
-              {post.title}
-            </a>
+            <a href={routes.writing.show.href({ slug: post.slug })}>{post.title}</a>
             {" — "}
             <time>{post.date}</time>
           </li>
@@ -52,11 +50,7 @@ function WritingIndexPage() {
 }
 
 function WritingShowPage() {
-  return ({
-    post,
-  }: {
-    post: NonNullable<ReturnType<typeof getPostBySlug>>;
-  }) => (
+  return ({ post }: { post: NonNullable<ReturnType<typeof getPostBySlug>> }) => (
     <article>
       <h1>{post.title}</h1>
       <time>{post.date}</time>
