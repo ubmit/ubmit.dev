@@ -1,7 +1,7 @@
 import { createAssetServer } from "remix/assets";
 
 export const assets = createAssetServer({
-  allow: ["app/assets/**", "app/ui/prompt-button.tsx", "node_modules/**"],
+  allow: ["app/assets/**", "node_modules/**"],
   basePath: "/assets",
   deny: ["app/**/*.server.*"],
   fileMap: {
