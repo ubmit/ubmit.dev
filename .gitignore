@@ -1,5 +1,6 @@
 node_modules/
 .pnpm-store/
+.pi/
 
 build/
 dist/
