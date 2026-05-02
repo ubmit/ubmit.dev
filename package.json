@@ -3,7 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "NODE_ENV=DEVELOPMENT tsx watch server.ts",
+    "css:watch": "vp exec tailwindcss -i ./app/assets/styles.css -o ./app/assets/styles-out.css --watch",
+    "server:dev": "NODE_ENV=DEVELOPMENT tsx watch server.ts",
+    "dev": "npm-run-all --parallel css:watch server:dev",
+    "prestart": "vp exec tailwindcss -i ./app/assets/styles.css -o ./app/assets/styles-out.css",
     "start": "tsx server.ts",
     "tsc": "tsgo",
     "lint": "vp lint",
@@ -19,6 +22,7 @@
   "devDependencies": {
     "@nkzw/eslint-plugin": "^2.0.0",
     "@nkzw/oxlint-config": "^1.1.1",
+    "@tailwindcss/cli": "^4.2.4",
     "@types/node": "latest",
     "@typescript/native-preview": "7.0.0-dev.20260501.1",
     "eslint-plugin-no-only-tests": "^3.4.0",
@@ -26,6 +30,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-unused-imports": "^4.4.1",
     "npm-run-all2": "^8.0.4",
+    "tailwindcss": "^4.2.4",
     "typescript": "latest",
     "vite-plus": "catalog:"
   },

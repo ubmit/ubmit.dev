@@ -16,6 +16,7 @@ export function Document() {
         <meta charSet="utf-8" />
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <title>{title}</title>
+        <link href={routes.assets.href({ path: "app/assets/styles-out.css" })} rel="stylesheet" />
       </head>
       <body>
         {children}
