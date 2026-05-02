@@ -1,0 +1,17 @@
+{
+  "languages": {
+    "TypeScript": {
+      "language_servers": ["tsgo", "vtsls"]
+    },
+    "TSX": {
+      "language_servers": ["tsgo", "vtsls"]
+    }
+  },
+  "lsp": {
+    "tsgo": {
+      "settings": {
+        "package_version": "7.0.0-dev.20260501.1"
+      }
+    }
+  }
+}

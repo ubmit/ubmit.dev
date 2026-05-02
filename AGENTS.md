@@ -1,43 +1,82 @@
-# Agent Guide — ubmit.dev
+# ubmit.dev Agent Guide
 
-## Comms
-- be extremely concise, drop grammar if needed
+This app was scaffolded with `remix new`. Use these conventions when continuing to build it out.
 
-## Commands (pnpm)
-- dev: `pnpm run dev` (localhost:4321)
-- build: `pnpm run build` (astro check + build)
-- format: `pnpm run format`
-- typecheck: `pnpm exec astro check`
+## Commands
 
-## Stack + tools
-- package mgr: pnpm
-- github: gh
-- web automation: `agent-browser` (see `agent-browser --help`)
-- use `agent-browser` for UI validation only after larger UI changes or a batch of small tweaks; skip for tiny single change if confident
-- frontend tasks: use `/frontend-design`
+Use `vp` (Vite+) for all project interactions instead of calling `npm`, `pnpm`, `yarn`, or `npx` directly.
 
-## Code style
-- TS strict, no `any`, no default exports, inline `export`
-- avoid new abstractions unless needed; prefer clear names over comments
-- avoid helpers for trivial expressions
-- no `try/catch` unless necessary
-- Astro: use frontmatter (`---`), keep markup semantic
-- formatting: Prettier (astro + tailwind plugins)
+### Development
 
-## UI + styling
-- Tailwind v4 only; use built-ins; rare globals
-- avoid custom CSS classes/vars for typography if Tailwind utilities suffice; prefer components with inline utilities
-- colors: Radix gray scale `--gray-1`…`--gray-12`
-- fonts: Commit Mono (mono), Work Sans (sans)
-- dark mode: `prefers-color-scheme`
+```sh
+vp install          # install dependencies
+vp dev              # start the dev server
+vp check            # run format, lint, and type checks together
+vp lint             # run linting
+vp fmt              # run formatting
+vp test             # run tests
+```
 
-## Content
-- blog: `src/content/blog/` (MD/MDX + frontmatter)
-- validate via Zod in `src/content/config.ts`
+### Running scripts
 
-## Tests + CI
-- CI jobs: lint-and-format, type-check, build
+```sh
+vp run <script>     # run a package.json script (e.g., vp run start, vp run typecheck)
+```
 
-## Git
-- commits: Conventional Commits, small + intentional
-- branches: prefix `gui/`
+### Dependencies
+
+```sh
+vp add <pkg>        # add a dependency
+vp add -D <pkg>     # add a dev dependency
+vp remove <pkg>     # remove a dependency
+vp update           # update dependencies
+vp outdated         # list outdated dependencies
+vp dedupe           # deduplicate dependencies
+vp why <pkg>        # show why a package is installed
+vp info <pkg>       # show package info
+```
+
+### Other `vp` commands
+
+```sh
+vp exec <bin>       # run a local project binary
+vp dlx <pkg>        # download and run a package binary without adding it as a dependency
+vp build            # build for production
+vp preview          # preview the production build locally
+vp cache clean      # clear task cache entries
+```
+
+### Package manager passthrough
+
+If you need a package manager command that `vp` does not wrap directly:
+
+```sh
+vp pm <command>     # call the underlying package manager directly
+```
+
+## Building Features
+
+Refer to ./agents/skills/remix/SKILL.md
+
+## Starter Layout
+
+- `app/controllers/home.tsx` owns the home page
+- `app/controllers/auth.tsx` owns the auth page
+- `app/routes.ts` defines the route contract
+- `app/router.ts` wires routes to route handlers
+- `app/ui/` holds the shared document and layout wrappers
+- `app/utils/render.tsx` centralizes HTML response rendering
+
+## Route Ownership
+
+- Start from `app/routes.ts` and map each route to the narrowest owner on disk.
+- Keep simple pages in flat files like `app/controllers/home.tsx` and `app/controllers/auth.tsx`.
+- Promote a route into a controller folder with `controller.tsx` only when it gains nested routes, multiple actions, or route-owned modules.
+- Keep route-owned page modules next to the route that owns them.
+- Move shared UI to `app/ui/`, not `app/controllers/`.
+
+## Build-Out Notes
+
+- This starter intentionally begins small; add directories like `app/data/`, `app/middleware/`, `public/`, and `test/` only when you need them.
+- Prefer putting code in the narrowest owner before introducing shared modules.
+- Avoid generic dumping-ground directories like `app/lib/` or `app/components/`.

@@ -1,37 +1,27 @@
-# ubmit.dev
+# Ubmit.dev
 
-## 🚀 Project Structure
+A minimal Remix application starter with a home page and an auth page.
 
-```text
-├── public/
-├── src/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+## Starter Shape
+
+- `app/controllers/home.tsx` owns the home page.
+- `app/controllers/auth.tsx` owns the auth page.
+- `app/routes.ts` defines the route contract.
+- `app/router.ts` wires routes to handlers.
+- `app/ui/` holds the shared document and layout wrappers.
+- `app/utils/render.tsx` centralizes HTML response rendering.
+
+## Growing The App
+
+- Start with flat route files and only introduce route folders when a route needs multiple actions or route-owned modules.
+- Add directories like `app/data/`, `app/middleware/`, `public/`, or `test/` when the app actually needs them.
+- Move shared UI into `app/ui/` once more than one route needs it.
+
+## Commands
+
+```sh
+npm i
+npm run start
+npm test
+npm run typecheck
 ```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                 | Action                                        |
-| :---------------------- | :-------------------------------------------- |
-| `pnpm install`          | Installs dependencies                         |
-| `pnpm run dev`          | Starts local dev server at `localhost:4321`   |
-| `pnpm run build`        | Build your production site to `./dist/`       |
-| `pnpm run format`       | Format code with Prettier                     |
-| `pnpm run format:check` | Check code formatting without modifying files |
-| `pnpm run astro check`  | Type-check Astro files                        |
