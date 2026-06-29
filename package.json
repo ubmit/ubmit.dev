@@ -15,24 +15,24 @@
     "prepare": "vp config"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.8",
+    "@astrojs/check": "^0.9.9",
     "@astrojs/mdx": "^5.0.2",
-    "@astrojs/rss": "^4.0.17",
-    "@astrojs/sitemap": "^3.7.1",
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.3",
     "@fontsource/work-sans": "^5.0.18",
     "@radix-ui/colors": "^3.0.0",
     "astro": "^6.0.6",
     "chart.js": "^4.5.1",
     "clsx": "^2.1.0",
-    "tailwind-merge": "^3.4.0",
+    "tailwind-merge": "^3.6.0",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@astrojs/upgrade": "^0.7.1",
+    "@astrojs/upgrade": "^0.7.3",
     "@myriaddreamin/typst-ts-node-compiler": "0.7.0-rc2",
-    "@tailwindcss/typography": "^0.5.19",
-    "@tailwindcss/vite": "^4.1.18",
-    "tailwindcss": "^4.1.18",
+    "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.3.2",
+    "tailwindcss": "^4.3.2",
     "vite-plus": "latest"
   },
   "packageManager": "pnpm@10.32.1",
